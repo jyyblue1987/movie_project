@@ -8,14 +8,14 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Model\Common\Department;
-use App\Models\Movies\Category;
+use App\Models\Movies\Country;
 
 use Redirect;
 use DB;
 use Response;
 use Datatables;
 
-class CategoryController extends Controller
+class CountryController extends Controller
 {
     private $request;
 	
@@ -30,19 +30,19 @@ class CategoryController extends Controller
 		$ids = $request->input('ids');
 		if( !empty($ids) )
 		{
-			Category::whereIn('id', $ids)->delete();			
+			Country::whereIn('id', $ids)->delete();			
 			return back()->withInput();				
 		} 
 		$_SESSION['maintitle'] = 'Category';
 		
 		$step = '0';
 		
-		return view('movies.category', compact('step'));	
+		return view('movies.country', compact('step'));	
     }
 
 	public function getGridData()
     {
-		$datalist = DB::table('category')->orderby('id','ASC');
+		$datalist = DB::table('country')->orderby('id','ASC');
 		return Datatables::of($datalist)
 				->addColumn('checkbox', function ($data) {
 					return '<input type="checkbox" class="checkthis" />';
@@ -77,7 +77,7 @@ class CategoryController extends Controller
 		$input = $request->except(['id']);
 		
 		try {
-			$model = Category::create($input);
+			$model = Country::create($input);
 		} catch(PDOException $e){
 		   return Response::json($model);
 		}	
@@ -87,7 +87,7 @@ class CategoryController extends Controller
 
     public function show($id)
     {
-		$model = Category::find($id);	
+		$model = Country::find($id);	
 		
 		return Response::json($model);
     }
@@ -103,7 +103,7 @@ class CategoryController extends Controller
 		
 		$input = $request->all();
 		
-		$model = Category::find($id);
+		$model = Country::find($id);
 			
 		if( !empty($model) )
 			$model->update($input);
@@ -115,7 +115,7 @@ class CategoryController extends Controller
     {
 		$input = $request->all();
 		
-		$model = Category::find($id);
+		$model = Country::find($id);
 			
 		if( empty($model) )
 			$model->update($input);
@@ -125,7 +125,7 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
-		$model = Category::find($id);
+		$model = Country::find($id);
 		$model->delete();
 		
 		return Response::json($model);				

@@ -4,20 +4,26 @@
 	$select_option1 = "#fff";
 	$select_option2 = "#fff";
 	$select_option3 = "#fff";
+	$select_option4 = "#fff";
 	$confirm = explode('movies/category', URL::to('/').'/'.Route::getCurrentRoute()->getPath());	
 	if(count($confirm) > 1){
-		$select_option1 = "#06460B";
+		$select_option1 = "#98D4EC";
 	}
 	$confirm = "";
 	$confirm = explode('movies/movies', URL::to('/').'/'.Route::getCurrentRoute()->getPath());	
 	if(count($confirm) > 1){
-		$select_option2 = "#06460B";
+		$select_option2 = "#98D4EC";
 	}
 	
 	$confirm = "";
 	$confirm = explode('movies/profile', URL::to('/').'/'.Route::getCurrentRoute()->getPath());	
 	if(count($confirm) > 1){
-		$select_option3 = "#06460B";
+		$select_option3 = "#98D4EC";
+	}
+	$confirm = "";
+	$confirm = explode('movies/country', URL::to('/').'/'.Route::getCurrentRoute()->getPath());	
+	if(count($confirm) > 1){
+		$select_option4 = "#98D4EC";
 	}
 ?>	
 
@@ -41,6 +47,11 @@
 	<div class="eachmenu" style="margin-top:27px;">		
 		<a href="/movies/category" style="color:<?php echo $select_option1;?>">
 		<i id="menuitem1" class="fa fa-list-alt" style="font-size:20px;">&nbsp;&nbsp;&nbsp;Category</i>
+		</a>
+	</div>
+	<div class="eachmenu" style="margin-top:27px;">	
+		<a href="/movies/country" style="color:<?php echo $select_option4;?>">
+		<i id="menuitem5" class="fa fa-file-video-o" style="font-size:20px;">&nbsp;&nbsp;&nbsp;Country</i>
 		</a>
 	</div>
 	<div class="eachmenu" style="margin-top:27px;">	

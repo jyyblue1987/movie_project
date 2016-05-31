@@ -31,6 +31,11 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminAuthentication', 'prefix
 		Route::post('/categorygrid/createdata', array('uses'=>'Movies\CategoryController@createData'));
 		Route::post('/categorygrid/updatedata', array('uses'=>'Movies\CategoryController@updateData'));
 		Route::get('/categorygrid/delete/{id?}', array('uses'=>'Movies\CategoryController@destroy'));
+		Route::resource('/country', 'Movies\CountryController');
+		Route::get('/countrygrid/get', array('uses'=>'Movies\CountryController@getGridData'));
+		Route::post('/countrygrid/createdata', array('uses'=>'Movies\CountryController@createData'));
+		Route::post('/countrygrid/updatedata', array('uses'=>'Movies\CountryController@updateData'));
+		Route::get('/countrygrid/delete/{id?}', array('uses'=>'Movies\CountryController@destroy'));
 		Route::resource('/movies', 'Movies\MoviesController');
 		Route::get('/moviesgrid/get', array('uses'=>'Movies\MoviesController@getGridData'));
 		Route::post('/moviesgrid/createdata', array('uses'=>'Movies\MoviesController@createData'));

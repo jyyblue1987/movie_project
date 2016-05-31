@@ -12,10 +12,10 @@
 						<span class="glyphicon glyphicon-plus"></span>
 						<b> Add New </b>
 					</button>                             
-					<span style="font-size:20px;margin-left:0px;">Category List</span>
+					<span style="font-size:20px;margin-left:0px;">Country List</span>
 				</div>                         
 				<div class="panel-body"> 
-					<table id="category_grid" class="table table-hover table-bordered" style="width:100%;text-align: center"> 
+					<table id="Country_grid" class="table table-hover table-bordered" style="width:100%;text-align: center"> 
 						<thead> 
 							<tr> 
 								<th style="text-align: center">
@@ -26,7 +26,7 @@
 								</th>
 								
 								<th style="text-align: center">
-									<b>Category Name</b>
+									<b>Country Name</b>
 								</th>
 
 								<th style="text-align: center">
@@ -64,9 +64,9 @@
 				<br> 
 				<form class="form-horizontal">
 					<div class="form-group">
-						<label class="control-label col-sm-4" for="client">Category Name : </label>
+						<label class="control-label col-sm-4" for="client">Country Name : </label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="name" placeholder="Category" value="">
+							<input type="text" class="form-control" id="name" placeholder="Country" value="">
 						</div>
 					</div>
 					<div class="form-group">
@@ -104,7 +104,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				</button>
-				<h3 class="modal-title" style="color:#2691d9" id="Heading">Delete a Category</h3>
+				<h3 class="modal-title" style="color:#2691d9" id="Heading">Delete a Country</h3>
 			</div>
 			<br>
 			<div class="modal-body">
@@ -133,10 +133,10 @@
 <script>
 	$('.col-sm-12').css('max-hgeight','500px ! important');
 	$('.col-sm-12').css('overflow-y','5scroll');
-	var $grid = $('#category_grid').dataTable( {
+	var $grid = $('#Country_grid').dataTable( {
 		processing: true,
 		serverSide: true,
-		ajax: '/movies/categorygrid/get',
+		ajax: '/movies/countrygrid/get',
 		//"lengthMenu": [[1, 2, 5, -1], [1, 2, 5, "All"]],
 		columns: [
 			{ data: 'checkbox', orderable: false, searchable: false},
@@ -167,10 +167,10 @@
 		{
 			$('#createButton').hide();
 			$('#updateButton').show();
-			$('#addModalLabel').text("Update Category");
+			$('#addModalLabel').text("Update Country");
 			
 			$.ajax({
-				url: "/movies/category/" + id,
+				url: "/movies/country/" + id,
 				success:function(data){
 					console.log(data);
 					$('#name').val(data.name);
@@ -183,7 +183,7 @@
 		}
 		else
 		{
-			$('#addModalLabel').text("Add Category");
+			$('#addModalLabel').text("Add Country");
 			$('#createButton').show();
 			$('#updateButton').hide();
 		}		
@@ -206,7 +206,7 @@
 		{
 			$.ajax({
 				type: "POST",
-				url: "/movies/categorygrid/updatedata",
+				url: "/movies/countrygrid/updatedata",
 				data: data,
 				success:function(data){
 					
@@ -221,7 +221,7 @@
 		{
 			$.ajax({
 				type: "POST",
-				url: "/movies/categorygrid/createdata",
+				url: "/movies/countrygrid/createdata",
 				data: data,
 				success:function(data){
 					$grid.fnPageChange( 'last' );
@@ -240,7 +240,7 @@
 		if( id >= 0 )
 		{
 			$.ajax({
-				url: "/movies/categorygrid/" + id,
+				url: "/movies/countrygrid/" + id,
 				success:function(data){
 					$("#delete_item").text("\"" + data.section + "\"");		
 				},			
@@ -259,7 +259,7 @@
 		if( id >= 0 )
 		{
 			$.ajax({
-				url: "/movies/categorygrid/delete/" + id,
+				url: "/movies/countrygrid/delete/" + id,
 				success:function(data){					
 					refreshCurrentPage();					
 				},			

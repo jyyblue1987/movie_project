@@ -1,21 +1,20 @@
 @extends('layout.setting_layout')
 @section('setting_content')
 
-<input type="hidden" id="id" value="-1"/>
 
 <div class="container" style="width:100%;"> 
 	<div class="row"> 
 		<div class="col-sm-offset-1 col-md-10"> 
 			<div class="panel panel-primary"> 
-				<div class="panel-heading" style="background:#509449;"> 
-					<button type="button" class="btn btn-success btn-xs" style="float:right;" data-toggle="modal" data-target="#addModal" onClick="onShowEditRow(-1)">
+				<div class="panel-heading" style="background:#2c7796;"> 
+					<button type="button" class="btn btn-success1 btn-xs" style="float:right;" data-toggle="modal" data-target="#addModal" onClick="onShowEditRow(-1)">
 						<span class="glyphicon glyphicon-plus"></span>
 						<b> Add New </b>
 					</button>                             
 					<span style="font-size:20px;margin-left:0px;">Movie List</span>
 				</div>                         
 				<div class="panel-body"> 
-					<table id="movie_grid" class="table table-hover table-bordered" style="text-align: center"> 
+					<table id="movie_grid" class="table table-hover table-bordered" style="text-align: center;width: 100%;"> 
 						<thead> 
 							<tr> 
 								<th style="text-align: center" style="width:2%">
@@ -26,6 +25,9 @@
 								</th>								
 								<th style="text-align: center" style="width:8%">
 									<b>Category</b>
+								</th>							
+								<th style="text-align: center" style="width:8%">
+									<b>Country</b>
 								</th>
 								<th style="text-align: center" style="width:20%">
 									<b>Movie Name</b>
@@ -67,44 +69,51 @@
 					<span aria-hidden="true">&times;</span> 
 				</button>                             
 				<h3 class="modal-title" style="color:#2691d9" id="addModalLabel">Add Time slab</h3> 
-			</div>                         
+			</div>   
+				{!! Form::open(['url'=>url('/sumevaluation'),'class'=>'form-horizontal', 'id'=>'movieform','enctype'=>'multipart/form-data']) !!}                      
+				
+					<input type="hidden" id="id" value="-1"/>
 			<div class="modal-body"> 
 				<br> 
-				<form class="form-horizontal">
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="client">Category : </label>
 						<div class="col-sm-5">
-							<?php echo Form::select('cid', $category, '1', array('class'=>'form-control', 'id' => 'cid')); ?>	
+							<?php echo Form::select('catid', $category, '1', array('class'=>'form-control', 'id' => 'catid', 'name' => 'catid')); ?>	
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-4" for="client">Country : </label>
+						<div class="col-sm-5">
+							<?php echo Form::select('cid', $country, '1', array('class'=>'form-control', 'id' => 'cid', 'name' => 'cid')); ?>	
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="client">Movie Name : </label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="name" placeholder="Movie name" value="">
+							<input type="text" class="form-control" id="name" name="name" placeholder="Movie name" value="">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="description">Description : </label>
 						<div class="col-sm-5" style="    width: 350px;">
-							<textarea class="form-control" rows="3" id="desc" size="40" placeholder="Description"></textarea>
+							<textarea class="form-control" rows="3" id="desc"  name="desc" size="40" placeholder="Description"></textarea>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="path">Movie URL : </label>
 						<div class="col-sm-5" style="    width: 350px;">
-							<input type="text" class="form-control" id="path" placeholder="Movie url" value="" size="40">
+							<input type="text" class="form-control" id="path" name="path" placeholder="Movie url" value="" size="40">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="thumb">Thumbnail : </label>
 						<div class="col-sm-5" style="    width: 350px;">
-							<input type="file" class="form-control" id="thumb" placeholder="thumbnail" value="" size="40">
+							<input type="file" class="form-control" id="thumb" name="thumb" placeholder="thumbnail" value="" size="40">
 						</div>
-					</div>
-				</form>                             
+					</div>                        
 			</div>                         
 			<div class="modal-footer " id="createButton">
-				<button type="button" class="btn btn-success btn-sm" data-dismiss="modal" onClick="onUpdateRow()">
+				<button type="button" class="btn btn-success1 btn-sm" data-dismiss="modal" onClick="onUpdateRow()">
 					<span class="glyphicon glyphicon-ok"></span>
 					<b> Save</b>
 				</button>
@@ -119,6 +128,7 @@
 					<span class="glyphicon glyphicon-ok-sign"></span> Update
 				</button>
 			</div>
+				{!! Form::close() !!} 
 		</div>                     
 	</div>                 
 </div>             
@@ -173,6 +183,7 @@
 		columns: [
 			{ data: 'checkbox', orderable: false, searchable: false},
 			{ data: 'id', name: 'm.id' },
+			{ data: 'catname', name: 'cat.name' },
 			{ data: 'cname', name: 'c.name' },
 			{ data: 'name', name: 'm.name' },
 			{ data: 'desc', name: 'm.desc' },
@@ -196,6 +207,7 @@
 		$("#id").val(id);
 					
 		$('#cid').val("");
+		$('#catid').val("");
 		$('#name').val("");
 		$("#desc").val("");
 		$("#path").val("");
@@ -212,6 +224,7 @@
 				success:function(data){
 					console.log(data);
 					$('#cid').val(data.cid);
+					$('#catid').val(data.catid);
 					$('#name').val(data.name);
 					$('#desc').val(data.desc);	
 					$('#path').val(data.path);			
@@ -235,6 +248,7 @@
 		var id = $("#id").val();
 		
 		var cid = $("#cid").val();
+		var catid = $("#catid").val();
 		var name = $("#name").val();
 		var desc = $("#desc").val();
 		var path = $("#path").val();
@@ -245,13 +259,16 @@
 			desc: desc,
 			path: path,
 			thumb: thumb,
-			cid: cid
+			cid: cid,
+			catid: catid
 			};
 
 		console.log(data);			
 		if( id >= 0 )	// Update
 		{
-			$.ajax({
+			document.getElementById('movieform').action="/movies/moviesgrid/updatedata";
+			$('#movieform').submit();
+			/* $.ajax({
 				type: "POST",
 				url: "/movies/moviesgrid/updatedata",
 				data: data,
@@ -262,11 +279,13 @@
 				error:function(request,status,error){
 					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
-			});	
+			});	 */
 		}
 		else			// Add
 		{
-			$.ajax({
+			document.getElementById('movieform').action="/movies/moviesgrid/createdata";
+			$('#movieform').submit();
+			/* $.ajax({
 				type: "POST",
 				url: "/movies/moviesgrid/createdata",
 				data: data,
@@ -276,7 +295,7 @@
 				error:function(request,status,error){
 					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
-			});	
+			});	 */
 		}
 	}	
 	

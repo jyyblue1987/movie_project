@@ -9,10 +9,12 @@ use App\Http\Controllers\Controller;
 
 use App\Model\Common\Department;
 use App\Models\Movies\Category;
+use App\Models\Movies\Country;
 use App\Models\Movies\Movies;
 
 use Redirect;
 use DB;
+use Auth;
 use Response;
 use Datatables;
 
@@ -36,16 +38,18 @@ class MoviesController extends Controller
 		} 
 		$_SESSION['maintitle'] = 'Movies';
 		$category = Category::lists('name', 'id');
+		$country = Country::lists('name', 'id');
 		$step = '0';
 		
-		return view('Movies.movies', compact('category', 'step'));	
+		return view('movies.movies', compact('category', 'country', 'step'));	
     }
 
 	public function getGridData()
     {
 		$datalist = DB::table('movies as m')
-		->leftjoin('category as c', 'c.id', '=', 'm.cid')
-		->select(['m.*', 'c.name as cname'])
+		->leftjoin('category as cat', 'cat.id', '=', 'm.catid')
+		->leftjoin('country as c', 'c.id', '=', 'm.cid')
+		->select(['m.*', 'c.name as cname', 'cat.name as catname'])
 		->orderby('created_at','DESC');
 		return Datatables::of($datalist)
 				->addColumn('checkbox', function ($data) {
@@ -84,15 +88,28 @@ class MoviesController extends Controller
 	
 	public function createData(Request $request)
 	{
-		$input = $request->except(['id']);
+		$id = $request->get('id', 0);
+		$cid = $request->get('cid', 0);
+		$catid = $request->get('catid', 0);
+		$name = $request->get('name', 0);
+		$desc = $request->get('desc', 0);
+		$path = $request->get('path', 0);
+		$model = Movies::create(['cid'=>$cid,'catid'=>$catid,'name'=>$name,'desc'=>$desc,'path'=>$path]);		
+		if($request->hasFile('thumb')){
+			
+			$file = $request->file('thumb');
+			$filename = $file->getClientOriginalName();
+			$file_url = $this->postAttached($file);
+			
+			$model->thumb = $file_url;
+			$model->save();
+		}
+		$_SESSION['maintitle'] = 'Movies';
+		$category = Category::lists('name', 'id');
+		$country = Country::lists('name', 'id');
+		$step = '0';
 		
-		try {
-			$model = Movies::create($input);
-		} catch(PDOException $e){
-		   return Response::json($model);
-		}	
-		
-		return Response::json($model);			
+		return view('movies.movies', compact('category', 'country', 'step'));		
 	}
 
     public function show($id)
@@ -114,16 +131,32 @@ class MoviesController extends Controller
     }
 
 	public function updateData(Request $request)
-	{
-		$id = $request->get('id', '0');
+	{	
+		$id = $request->get('id', 0);
+		$cid = $request->get('cid', 0);
+		$catid = $request->get('catid', 0);
+		$name = $request->get('name', 0);
+		$desc = $request->get('desc', 0);
+		$path = $request->get('path', 0);	
+		$thumb = $request->get('thumb', 0);	
 		
-		$input = $request->all();
+		$model = Movies::where('id', $id)->update(['cid'=>$cid,'catid'=>$catid,'name'=>$name,'desc'=>$desc,'path'=>$path]);
+			var_dump($model);return;
+		if($request->hasFile('thumb')){
+			
+			$file = $request->file('thumb');
+			$filename = $file->getClientOriginalName();
+			$file_url = $this->postAttached($file);
+			
+			$model->thumb = $file_url;
+			$model->save();
+		}
+		$_SESSION['maintitle'] = 'Movies';
+		$category = Category::lists('name', 'id');
+		$country = Country::lists('name', 'id');
+		$step = '0';
 		
-		$model = Movies::find($id);
-		if( !empty($model) )
-			$model->update($input);
-		
-		return Response::json($model);			
+		return view('movies.movies', compact('category', 'country', 'step'));			
 	}
 	
     public function update(Request $request, $id)
@@ -145,4 +178,17 @@ class MoviesController extends Controller
 		
 		return Response::json($model);				
     }	
+	public function postAttached($file){
+		$folder = $_SERVER['DOCUMENT_ROOT'].'/uploads';
+		if(!file_exists($_SERVER['DOCUMENT_ROOT'].'/uploads')){
+			mkdir($_SERVER['DOCUMENT_ROOT'].'/uploads');
+		}
+		$filename = $file->getClientOriginalName();
+		$filename = time();
+		$file->move(
+			base_path() . '/public/uploads/'.$id,$filename
+		);
+		$file_url = $_SERVER['SERVER_NAME'].'/uploads/tasks/'.$id.'/'.$filename;
+		return $file_url;
+	}
 }

@@ -4,11 +4,11 @@
 		<link href="/css/admin_setting.css" rel="stylesheet">
 		<div id="setting_div">
 			
-			<div id="setting_sidebar" class="sidebar_back" style="background:#4B8445;">
+			<div id="setting_sidebar" class="sidebar_back" style="background: #2c7796;">
 				@include('layout.sidebar')
 			</div>
-			<div id="setting_content">
-				<div id="setting_sub_content" style="    border-color: #4B8445;    border-style: solid;">
+			<div id="setting_content" style="background: url('/images/covers1.jpg');background-size: cover;">
+				<div id="setting_sub_content" style="    border-color: #2c7796;    border-style: solid;">
 				@section('setting_nav')
 					<div style="clear:both;margin-top:50px;positive:relative">
 						@yield('setting_content')								

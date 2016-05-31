@@ -28,7 +28,7 @@ class ProfileController extends Controller
 		$_SESSION['maintitle'] = 'Profile';
 		$step = '0';
 		
-		return view('Movies.profile', compact('step'));	
+		return view('movies.profile', compact('step'));	
     }
 
 	public function getData()

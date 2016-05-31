@@ -8,8 +8,8 @@
 <div class="container" style="width:100%;"> 
 	<div class="row"> 
 		<div class="col-sm-offset-1 col-md-10"> 
-			<div class="panel panel-primary"> 
-				<div style="background:#509449;height:50px;padding-top:5px;">                            
+			<div class="panel panel-primary" style="background: rgba(183, 216, 183, 0.74902);"> 
+				<div style="background:#2c7796;height:50px;padding-top:5px;">                            
 					<h3 class="modal-title" style="color:#fff" id="addModalLabel">Admin Profile</h3> 
 				</div>     
 				{!! Form::open(['route' => 'post-admin-update', 'class'=>'form-horizontal']) !!}	          
@@ -60,7 +60,7 @@
 						</div>                         
 				</div>                         
 				<div class="modal-footer " id="createButton">
-					<button type="submit" class="btn btn-success btn-sm" data-dismiss="modal">
+					<button type="submit" class="btn btn-success1 btn-sm" data-dismiss="modal">
 						<span class="glyphicon glyphicon-ok"></span>
 						<b> Update</b>
 					</button>
