@@ -19,6 +19,7 @@ Route::get('/', function () {
 Route::get('/login-admin', ['as' => 'login-admin', 'uses' => 'Movies\AdminController@index']);	
 Route::get('/logout', array('uses'=>'Movies\AdminController@logout'));
 Route::post('/confirm', array('uses'=>'Movies\AdminController@confirm'));
+Route::get('/process/{proc}', array('uses'=>'Movies\ProcessController@getProcess'));
 
 
 Route::get('dropdown/floor', array('uses'=>'AjaxController@dropdownfloor'));    

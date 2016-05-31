@@ -64,7 +64,7 @@ class MoviesController extends Controller
 					return '<a href="'.$data->path.'" style="text-decoration: none;" target="_blank()">'.$data->path.'</a>';
 				})
 				->editColumn('thumb', function ($data) {
-					return '<a href="'.$data->thumb.'" style="text-decoration: none;" target="_blank()"><img src="/images/uploads/'.$data->thumb.'" width="50px" height="30px"></a>';
+					return '<a href="'.$data->thumb.'" style="text-decoration: none;" target="_blank()"><img src="'.$data->thumb.'" width="50px" height="30px"></a>';
 				})
 				->addColumn('delete', function ($data) {
 					return '<p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#deleteModal" onClick="onDeleteRow('.$data->id.')">
@@ -91,16 +91,21 @@ class MoviesController extends Controller
 		$id = $request->get('id', 0);
 		$cid = $request->get('cid', 0);
 		$catid = $request->get('catid', 0);
-		$name = $request->get('name', 0);
-		$desc = $request->get('desc', 0);
-		$path = $request->get('path', 0);
-		$model = Movies::create(['cid'=>$cid,'catid'=>$catid,'name'=>$name,'desc'=>$desc,'path'=>$path]);		
+		$name = $request->get('name', '');
+		$desc = $request->get('desc', '');
+		$path = $request->get('path', '');
+		$model = new Movies();
+		$model->cid = $cid;
+		$model->catid = $catid;
+		$model->name = $name;
+		$model->desc = $desc;
+		$model->path = $path;		
+		$model->save();
 		if($request->hasFile('thumb')){
 			
 			$file = $request->file('thumb');
 			$filename = $file->getClientOriginalName();
 			$file_url = $this->postAttached($file);
-			
 			$model->thumb = $file_url;
 			$model->save();
 		}
@@ -109,7 +114,7 @@ class MoviesController extends Controller
 		$country = Country::lists('name', 'id');
 		$step = '0';
 		
-		return view('movies.movies', compact('category', 'country', 'step'));		
+		return Redirect::to('/movies/movies');		
 	}
 
     public function show($id)
@@ -135,28 +140,24 @@ class MoviesController extends Controller
 		$id = $request->get('id', 0);
 		$cid = $request->get('cid', 0);
 		$catid = $request->get('catid', 0);
-		$name = $request->get('name', 0);
-		$desc = $request->get('desc', 0);
-		$path = $request->get('path', 0);	
-		$thumb = $request->get('thumb', 0);	
-		
-		$model = Movies::where('id', $id)->update(['cid'=>$cid,'catid'=>$catid,'name'=>$name,'desc'=>$desc,'path'=>$path]);
-			var_dump($model);return;
+		$name = $request->get('name', '');
+		$desc = $request->get('desc', '');
+		$path = $request->get('path', '');
+		$model = DB::table('movies')->where('id', $id)->update(['cid'=>$cid,'catid'=>$catid,'name'=>$name,'desc'=>$desc,'path'=>$path]);
+			
 		if($request->hasFile('thumb')){
 			
 			$file = $request->file('thumb');
 			$filename = $file->getClientOriginalName();
 			$file_url = $this->postAttached($file);
-			
-			$model->thumb = $file_url;
-			$model->save();
+			DB::table('movies')->where('id', $id)->update(['thumb'=>$file_url]);
 		}
 		$_SESSION['maintitle'] = 'Movies';
 		$category = Category::lists('name', 'id');
 		$country = Country::lists('name', 'id');
 		$step = '0';
 		
-		return view('movies.movies', compact('category', 'country', 'step'));			
+		return Redirect::to('/movies/movies');			
 	}
 	
     public function update(Request $request, $id)
@@ -184,11 +185,12 @@ class MoviesController extends Controller
 			mkdir($_SERVER['DOCUMENT_ROOT'].'/uploads');
 		}
 		$filename = $file->getClientOriginalName();
-		$filename = time();
+		$ext = explode('.',$filename);
+		$filename = time().".".$ext[1];
 		$file->move(
-			base_path() . '/public/uploads/'.$id,$filename
+			base_path() . '/public/uploads/',$filename
 		);
-		$file_url = $_SERVER['SERVER_NAME'].'/uploads/tasks/'.$id.'/'.$filename;
+		$file_url = '/uploads/'.$filename;
 		return $file_url;
 	}
 }

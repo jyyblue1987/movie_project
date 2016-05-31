@@ -6,7 +6,7 @@
 		<i class="fa fa-video-o" style="font-size:45px;font-weight:bold;font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;color:#fff;">		
 		Movies
 		</i>
-		<span style="color:#fff;margin-left:30%;font-size:20px;font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;">
+		<span style="color:#fff;margin-left:30%;    font-size: 25px;    font-weight: bold;font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;">
 		<?php
 		$maintitle = "";
 		if(isset($_SESSION['maintitle'])){

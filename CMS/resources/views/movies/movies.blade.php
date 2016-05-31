@@ -5,7 +5,7 @@
 <div class="container" style="width:100%;"> 
 	<div class="row"> 
 		<div class="col-sm-offset-1 col-md-10"> 
-			<div class="panel panel-primary"> 
+			<div class="panel panel-primary" style="background: rgba(183, 216, 183, 0.74902);"> 
 				<div class="panel-heading" style="background:#2c7796;"> 
 					<button type="button" class="btn btn-success1 btn-xs" style="float:right;" data-toggle="modal" data-target="#addModal" onClick="onShowEditRow(-1)">
 						<span class="glyphicon glyphicon-plus"></span>
@@ -70,9 +70,9 @@
 				</button>                             
 				<h3 class="modal-title" style="color:#2691d9" id="addModalLabel">Add Time slab</h3> 
 			</div>   
-				{!! Form::open(['url'=>url('/sumevaluation'),'class'=>'form-horizontal', 'id'=>'movieform','enctype'=>'multipart/form-data']) !!}                      
+				{!! Form::open(['url'=>url('/movies/moviesgrid/updatedata'),'class'=>'form-horizontal', 'id'=>'movieform','enctype'=>'multipart/form-data']) !!}                      
 				
-					<input type="hidden" id="id" value="-1"/>
+					<input type="hidden" id="id" name="id" value="-1"/>
 			<div class="modal-body"> 
 				<br> 
 					<div class="form-group">
@@ -174,7 +174,7 @@
 </style>
 <script>
 	$('.col-sm-12').css('max-hgeight','500px ! important');
-	$('.col-sm-12').css('overflow-y','5scroll');
+	$('.col-sm-12').css('overflow-y','scroll');
 	var $grid = $('#movie_grid').dataTable( {
 		processing: true,
 		serverSide: true,
@@ -228,7 +228,6 @@
 					$('#name').val(data.name);
 					$('#desc').val(data.desc);	
 					$('#path').val(data.path);			
-					$('#thumb').val(data.thumb);		
 				},			
 				error:function(request,status,error){
 					//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -245,25 +244,7 @@
 	
 	function onUpdateRow()
 	{
-		var id = $("#id").val();
-		
-		var cid = $("#cid").val();
-		var catid = $("#catid").val();
-		var name = $("#name").val();
-		var desc = $("#desc").val();
-		var path = $("#path").val();
-		var thumb = $("#thumb").val();
-		var data = {
-			id : id,
-			name: name,
-			desc: desc,
-			path: path,
-			thumb: thumb,
-			cid: cid,
-			catid: catid
-			};
-
-		console.log(data);			
+		var id = $("#id").val();		
 		if( id >= 0 )	// Update
 		{
 			document.getElementById('movieform').action="/movies/moviesgrid/updatedata";

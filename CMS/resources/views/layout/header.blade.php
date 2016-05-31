@@ -5,7 +5,7 @@
 	
 	<title>Movies</title>
 	
-	<script type='text/javascript' src='/js/jquery.min.js'></script>
+	<script type='text/javascript' src='/js/jquery-2.2.3.js'></script>
 	<script src="/js/jquery-migrate-1.2.1.js"></script>
 	<script type='text/javascript' src='/assets/js/ie10-viewport-bug-workaround.js'></script>	
 	<script src="/js/jquery.dataTables.js"></script>
@@ -45,9 +45,9 @@
 		});
 		
 		var changes_warning = 'Y';
-        $(function(){
+        /* $(function(){
             $.runCart('A');
-        });
+        }); */
 		
 	</script>
 </head>
