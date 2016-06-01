@@ -8,32 +8,32 @@ package tv.danmaku.ijk.media.widget;
 
 public final class R {
 	public static final class drawable {
-		public static final int ic_launcher = 0x7f02000b;
-		public static final int mediacontroller_bg = 0x7f02000f;
-		public static final int mediacontroller_pause01 = 0x7f020010;
-		public static final int mediacontroller_pause02 = 0x7f020011;
-		public static final int mediacontroller_pause_button = 0x7f020012;
-		public static final int mediacontroller_play01 = 0x7f020013;
-		public static final int mediacontroller_play02 = 0x7f020014;
-		public static final int mediacontroller_play_button = 0x7f020015;
-		public static final int mediacontroller_seekbar01 = 0x7f020016;
-		public static final int mediacontroller_seekbar02 = 0x7f020017;
-		public static final int scrubber_control_disabled_holo = 0x7f02001f;
-		public static final int scrubber_control_focused_holo = 0x7f020020;
-		public static final int scrubber_control_normal_holo = 0x7f020021;
-		public static final int scrubber_control_pressed_holo = 0x7f020022;
-		public static final int scrubber_control_selector_holo = 0x7f020023;
-		public static final int scrubber_primary_holo = 0x7f020024;
-		public static final int scrubber_progress_horizontal_holo_dark = 0x7f020025;
-		public static final int scrubber_secondary_holo = 0x7f020026;
-		public static final int scrubber_track_holo_dark = 0x7f020027;
+		public static final int ic_launcher = 0x7f02000c;
+		public static final int mediacontroller_bg = 0x7f020012;
+		public static final int mediacontroller_pause01 = 0x7f020013;
+		public static final int mediacontroller_pause02 = 0x7f020014;
+		public static final int mediacontroller_pause_button = 0x7f020015;
+		public static final int mediacontroller_play01 = 0x7f020016;
+		public static final int mediacontroller_play02 = 0x7f020017;
+		public static final int mediacontroller_play_button = 0x7f020018;
+		public static final int mediacontroller_seekbar01 = 0x7f020019;
+		public static final int mediacontroller_seekbar02 = 0x7f02001a;
+		public static final int scrubber_control_disabled_holo = 0x7f020022;
+		public static final int scrubber_control_focused_holo = 0x7f020023;
+		public static final int scrubber_control_normal_holo = 0x7f020024;
+		public static final int scrubber_control_pressed_holo = 0x7f020025;
+		public static final int scrubber_control_selector_holo = 0x7f020026;
+		public static final int scrubber_primary_holo = 0x7f020027;
+		public static final int scrubber_progress_horizontal_holo_dark = 0x7f020028;
+		public static final int scrubber_secondary_holo = 0x7f020029;
+		public static final int scrubber_track_holo_dark = 0x7f02002a;
 	}
 	public static final class id {
-		public static final int mediacontroller_file_name = 0x7f07002e;
-		public static final int mediacontroller_play_pause = 0x7f07002a;
-		public static final int mediacontroller_seekbar = 0x7f07002d;
-		public static final int mediacontroller_time_current = 0x7f07002b;
-		public static final int mediacontroller_time_total = 0x7f07002c;
+		public static final int mediacontroller_file_name = 0x7f070023;
+		public static final int mediacontroller_play_pause = 0x7f07001f;
+		public static final int mediacontroller_seekbar = 0x7f070022;
+		public static final int mediacontroller_time_current = 0x7f070020;
+		public static final int mediacontroller_time_total = 0x7f070021;
 	}
 	public static final class layout {
 		public static final int mediacontroller = 0x7f03000d;

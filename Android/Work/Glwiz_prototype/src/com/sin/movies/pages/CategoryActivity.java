@@ -7,21 +7,27 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sin.movies.Const;
 import com.sin.movies.R;
 import com.sin.movies.network.ServerManager;
+import com.sin.movies.network.ServerTask;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import common.design.layout.LayoutUtils;
 import common.design.layout.ScreenAdapter;
+import common.image.load.ImageUtils;
 import common.library.utils.AlgorithmUtils;
 import common.library.utils.MessageUtils;
 import common.list.adapter.ItemCallBack;
@@ -48,6 +54,9 @@ public class CategoryActivity extends HeaderBarActivity {
 	List<JSONObject> 		categorylist = null;
 	List<JSONObject> 		countrylist = null;
 	List<JSONObject> 		movielist = null;
+	JSONArray				moviedata = null;
+	JSONArray				categorydata = null;
+	JSONArray				countrydata = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -88,8 +97,8 @@ public class CategoryActivity extends HeaderBarActivity {
 					return;
 				}		
 				
-				JSONArray array = data.optJSONArray("content");
-				movielist = AlgorithmUtils.jsonarrayToList(array);
+				moviedata = data.optJSONArray("content");
+				movielist = AlgorithmUtils.jsonarrayToList(moviedata);
 				m_movieadapterGrid = new ItemMovieGridAdapter(CategoryActivity.this, movielist, R.layout.fragment_movie_item, null);		
 				m_movielist.setAdapter(m_movieadapterGrid);      	
 				m_movielist.requestFocus();
@@ -112,11 +121,12 @@ public class CategoryActivity extends HeaderBarActivity {
 					return;
 				}		
 				
-				JSONArray array = data.optJSONArray("content");
-				categorylist = AlgorithmUtils.jsonarrayToList(array);
+				categorydata = data.optJSONArray("content");
+				categorylist = AlgorithmUtils.jsonarrayToList(categorydata);
 				m_categoryadapterGrid = new ItemCategoryGridAdapter(CategoryActivity.this, categorylist, R.layout.fragment_category_item, null);		
 				m_categorylist.setAdapter(m_categoryadapterGrid);    	
-				m_categorylist.requestFocus();
+				m_categorylist.requestFocus();			 	
+				m_categorylist.setNumColumns(categorydata.length());
 				m_categorylist.setSelection(0);
 				m_categorylist.setItemChecked(0, true);
 				
@@ -136,10 +146,11 @@ public class CategoryActivity extends HeaderBarActivity {
 					return;
 				}		
 				
-				JSONArray array = data.optJSONArray("content");
-				countrylist = AlgorithmUtils.jsonarrayToList(array);
+				countrydata = data.optJSONArray("content");
+				countrylist = AlgorithmUtils.jsonarrayToList(countrydata);
 				m_countryadapterGrid = new ItemCountryGridAdapter(CategoryActivity.this, countrylist, R.layout.fragment_category_item, null);		
 				m_countrylist.setAdapter(m_countryadapterGrid);    	
+				m_countrylist.setNumColumns(countrydata.length());
 				m_countrylist.requestFocus();
 				m_countrylist.setSelection(0);
 				m_countrylist.setItemChecked(0, true);
@@ -151,12 +162,18 @@ public class CategoryActivity extends HeaderBarActivity {
 	{
 		super.layoutControls();
 		
-		LayoutUtils.setMargin(m_movielist, ScreenAdapter.getDeviceWidth() / 8, 0, ScreenAdapter.getDeviceWidth() / 8, 0, true);
-		LayoutUtils.setMargin(m_countrylist, ScreenAdapter.getDeviceWidth() / 7, 0, ScreenAdapter.getDeviceWidth() / 7, 0, true);
-		LayoutUtils.setMargin(m_categorylist, ScreenAdapter.getDeviceWidth() / 7, 0, ScreenAdapter.getDeviceWidth() / 7, 0, true);
-		LayoutUtils.setMargin(m_arrayleft, ScreenAdapter.getDeviceWidth() / 8, 0, ScreenAdapter.getDeviceWidth() / 8, 0, true);
+		LayoutUtils.setMargin(m_movielist, ScreenAdapter.getDeviceWidth() / 7, ScreenAdapter.getDeviceHeight() * 2 / 15, ScreenAdapter.getDeviceWidth() / 7, 0, true);
+		LayoutUtils.setSize(m_movielist, ScreenAdapter.getDeviceWidth() , ScreenAdapter.getDeviceHeight() * 9 / 10 , true);
+		
+		LayoutUtils.setMargin(m_countrylist, 0,  20, ScreenAdapter.getDeviceWidth() / 7, 10, true);
+		LayoutUtils.setSize(m_countrylist, LayoutParams.FILL_PARENT, ScreenAdapter.getDeviceHeight() * 1 / 7 , true);
+		
+		LayoutUtils.setMargin(m_categorylist, 0, 20, ScreenAdapter.getDeviceWidth() / 7, 10, true);
+		LayoutUtils.setSize(m_categorylist, LayoutParams.FILL_PARENT, ScreenAdapter.getDeviceHeight() * 1 / 7 , true);
+		
+		LayoutUtils.setMargin(m_arrayleft, ScreenAdapter.getDeviceWidth() / 8 , ScreenAdapter.getDeviceHeight() * 1 / 10, 10, 0, true);
 		LayoutUtils.setSize(m_arrayleft, 50, 100, true);
-		LayoutUtils.setMargin(m_arrayright, ScreenAdapter.getDeviceWidth() / 8, 0, ScreenAdapter.getDeviceWidth() / 8, 0, true);
+		LayoutUtils.setMargin(m_arrayright, 10 , ScreenAdapter.getDeviceHeight() * 1 / 10, ScreenAdapter.getDeviceWidth() / 8, 0, true);
 		LayoutUtils.setSize(m_arrayright, 50, 100, true);
 	}
 	
@@ -168,14 +185,14 @@ public class CategoryActivity extends HeaderBarActivity {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				gotoOtherPage(position);
+				gotoPlayPage(position);
 			}
 		});		
 		m_countrylist.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				gotoOtherPage(position);
+				gotoPlayPage(position);
 			}
 		});		
 		m_categorylist.setOnItemClickListener(new OnItemClickListener() {
@@ -189,19 +206,36 @@ public class CategoryActivity extends HeaderBarActivity {
 	
 	private void gotoOtherPage(int position)
 	{
-		if( position == 0 )
-			gotoPlayListPage();
+		//if( position == 0 )
+			//gotoPlayListPage();
 		
 		if( position == 3 )
 			gotoProfilePage();
 				
 	}
 	
-	private void gotoPlayListPage()
+	private void gotoPlayPage(int position)
 	{
+		JSONObject item = null;
+		try {
+			item = moviedata.getJSONObject(position);
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		Bundle bundle = new Bundle();
-		bundle.putString(INTENT_EXTRA, "0");
-		ActivityManager.changeActivity(this, PlayListActivity.class, bundle, false, null );
+		
+		JSONObject data = new JSONObject();
+		
+		try {
+			data.put(Const.POSITION, 0);
+			data.put(Const.ARRAY, item.get("path"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		bundle.putString(INTENT_EXTRA, data.toString());
+		ActivityManager.changeActivity(this, PlayerActivity.class, bundle, false, null );
 	}
 	
 	private void gotoProfilePage()
@@ -222,9 +256,8 @@ public class CategoryActivity extends HeaderBarActivity {
     	{
     		final JSONObject item = getItem(position);
     		
-    		
-    		LayoutUtils.setMargin(ViewHolder.get(rowView, R.id.txt_name), 0, 20, 0, 60, true);
-    		((TextView)ViewHolder.get(rowView, R.id.txt_name)).setTextSize(TypedValue.COMPLEX_UNIT_PX, ScreenAdapter.computeHeight(60));
+    		Log.e("name", item.optString("name", ""));
+    		((TextView)ViewHolder.get(rowView, R.id.txt_name)).setTextSize(TypedValue.COMPLEX_UNIT_PX, ScreenAdapter.computeHeight(40));
     		
     		((TextView)ViewHolder.get(rowView, R.id.txt_name)).setText(item.optString("name", ""));    		
     	}
@@ -242,8 +275,7 @@ public class CategoryActivity extends HeaderBarActivity {
     		final JSONObject item = getItem(position);
     		
     		
-    		LayoutUtils.setMargin(ViewHolder.get(rowView, R.id.txt_name), 0, 20, 0, 60, true);
-    		((TextView)ViewHolder.get(rowView, R.id.txt_name)).setTextSize(TypedValue.COMPLEX_UNIT_PX, ScreenAdapter.computeHeight(60));
+    		((TextView)ViewHolder.get(rowView, R.id.txt_name)).setTextSize(TypedValue.COMPLEX_UNIT_PX, ScreenAdapter.computeHeight(40));
     		
     		((TextView)ViewHolder.get(rowView, R.id.txt_name)).setText(item.optString("name", ""));    		
     	}
@@ -259,11 +291,16 @@ public class CategoryActivity extends HeaderBarActivity {
     	protected void loadItemViews(View rowView, final int position)
     	{
     		final JSONObject item = getItem(position);
-    		
-    		LayoutUtils.setSize(ViewHolder.get(rowView, R.id.img_thumbnail), 140, 140, true);    		
-    		LayoutUtils.setMargin(ViewHolder.get(rowView, R.id.img_thumbnail), 0, 60, 0, 0, true);    		
-    		
-    		((ImageView)ViewHolder.get(rowView, R.id.img_thumbnail)).setImageResource(item.optInt("thumb", R.drawable.ic_launcher));
+    		String photo = "";
+    		try{
+    			photo = ServerTask.PHOTO_URL + item.getString("thumb");
+    		}catch(Exception e){}
+    		int height = (ScreenAdapter.getDeviceHeight() * 9 / 10) / 2 - 10;
+    		int width = ScreenAdapter.getDeviceWidth() / 6 - 5;
+    		LayoutUtils.setSize(ViewHolder.get(rowView, R.id.img_thumbnail), width, height, true);    		
+    		LayoutUtils.setMargin(ViewHolder.get(rowView, R.id.img_thumbnail), 5, 5, 5, 5, true);    		
+    		DisplayImageOptions options = ImageUtils.buildUILOption(R.drawable.ic_launcher).build();
+			ImageLoader.getInstance().displayImage(photo, (ImageView)ViewHolder.get(rowView, R.id.img_thumbnail), options);
     	}
     }
 	 

@@ -62,6 +62,7 @@ class ProcessController extends Controller
 	private function getCountry($request)
 	{
 		$data = DB::table('country')->orderby('id', 'ASC')->get();
+		
 		return $this->outputResult(SUCCESS, $data);
 	}
 	private function getCategory($request)
