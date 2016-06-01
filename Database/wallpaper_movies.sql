@@ -60,9 +60,11 @@ CREATE TABLE `devices` (
   `serialno` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 /*Data for the table `devices` */
+
+insert  into `devices`(`id`,`macaddress`,`serialno`,`created_at`) values (5,'56:as:as:as:as:as:as','123456789','2016-06-01 11:08:06'),(21,'54:34:23:24:34','123456','2016-06-01 12:06:02'),(22,'as:we:we:df:df:sd','23231121','2016-06-01 12:06:02'),(23,'qw:er:23:34','wwwwww','2016-06-01 12:06:02');
 
 /*Table structure for table `migrations` */
 
