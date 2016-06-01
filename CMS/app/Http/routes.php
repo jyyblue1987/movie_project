@@ -45,6 +45,13 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminAuthentication', 'prefix
 		Route::get('/profile', array('uses'=>'Movies\ProfileController@getData'));
 		Route::post('/profile/updatedata', array('uses'=>'Movies\ProfileController@updateData'));
 		
+		Route::resource('/device', 'Movies\DeviceController');
+		Route::get('/devicegrid/get', array('uses'=>'Movies\DeviceController@getGridData'));
+		Route::post('/devicegrid/createdata', array('uses'=>'Movies\DeviceController@createData'));
+		Route::post('/devicegrid/updatedata', array('uses'=>'Movies\DeviceController@updateData'));
+		Route::post('/devicegrid/importdata', array('uses'=>'Movies\DeviceController@importData'));
+		Route::get('/devicegrid/delete/{id?}', array('uses'=>'Movies\DeviceController@destroy'));
+		
 		Route::post('/post-admin-update', ['as' => 'post-admin-update', 'uses' => 'Movies\AdminController@update']);	
 		
 		// file upload

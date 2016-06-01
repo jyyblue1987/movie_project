@@ -53,6 +53,9 @@ class ProcessController extends Controller
 			case 'getmovies':
 				$this->getMovies($request);	
 				break;	
+			case 'checkdevice':
+				$this->checkDevice($request);	
+				break;	
 		}
 		
 	}
@@ -90,6 +93,26 @@ class ProcessController extends Controller
 		}else{
 			$data = DB::table('movies')->where('catid', $catid)->where('cid', $cid)->offset($offset1)->limit($limit)->orderby('created_at', 'DESC')->get();
 		}
+		
+		return $this->outputResult(SUCCESS, $data);
+	}
+	private function checkDevice($request)
+	{
+		if( $request->has('macaddress') == false  ||
+			$request->has('serial') == false)
+		{ 
+			$this->outputResult(MISSING_PARAMETER);
+			return;
+		}
+		$macaddress = $request->get('macaddress', 0);
+		$serialno = $request->get('serial', 0);
+		$data = DB::table('devices')->where('macaddress', $macaddress)->where('serialno', $serialno)->first();
+		if(empty($data)){
+			$data = 0;
+		}else{
+			$data = 1;
+		}
+		
 		
 		return $this->outputResult(SUCCESS, $data);
 	}

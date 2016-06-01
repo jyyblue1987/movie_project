@@ -5,6 +5,7 @@
 	$select_option2 = "#fff";
 	$select_option3 = "#fff";
 	$select_option4 = "#fff";
+	$select_option5 = "#fff";
 	$confirm = explode('movies/category', URL::to('/').'/'.Route::getCurrentRoute()->getPath());	
 	if(count($confirm) > 1){
 		$select_option1 = "#98D4EC";
@@ -25,6 +26,11 @@
 	if(count($confirm) > 1){
 		$select_option4 = "#98D4EC";
 	}
+	$confirm = "";
+	$confirm = explode('movies/device', URL::to('/').'/'.Route::getCurrentRoute()->getPath());	
+	if(count($confirm) > 1){
+		$select_option5 = "#98D4EC";
+	}
 ?>	
 
 	<style>
@@ -43,6 +49,11 @@
 	</style>
 	<div class="eachmenu" style="margin-top:47px;margin-left:0px;">		
 		<p id="setup_wizard"><i class="fa fa-gear" style="width:25px;font-size:25px;color:#fff"></i><span style="margin-top:-5px;font-size:25px;font-weight:bold;color:#fff">&nbsp;&nbsp;MENU<span></p>
+	</div>
+	<div class="eachmenu" style="margin-top:27px;">		
+		<a href="/movies/device" style="color:<?php echo $select_option5;?>">
+		<i id="menuitem1" class="fa fa-list-alt" style="font-size:20px;">&nbsp;&nbsp;&nbsp;Devices</i>
+		</a>
 	</div>
 	<div class="eachmenu" style="margin-top:27px;">		
 		<a href="/movies/category" style="color:<?php echo $select_option1;?>">
