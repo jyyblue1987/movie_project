@@ -80,24 +80,24 @@ public class LoginActivity extends BaseActivity {
 			public void doAction(LogicResult result) {
 				hideProgress();
 				
-				JSONObject data = result.getData();
-				if( data == null)
-				{
-					 MessageUtils.showMessageDialog(LoginActivity.this, data.optString("message", "Server is not responding"));
-					return;
-				}
-				String content = "0";
-				try {
-					content = data.getString("content");
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				if(content.equals("1")){
+//				JSONObject data = result.getData();
+//				if( data == null)
+//				{
+//					 MessageUtils.showMessageDialog(LoginActivity.this, data.optString("message", "Server is not responding"));
+//					return;
+//				}
+//				String content = "0";
+//				try {
+//					content = data.getString("content");
+//				} catch (JSONException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				if(content.equals("1")){
 					gotoCategoryListPage();
-				}else{
-					MessageUtils.showMessageDialog(LoginActivity.this, data.optString("message", "invalid device."));
-				}
+//				}else{
+//					MessageUtils.showMessageDialog(LoginActivity.this, data.optString("message", "invalid device."));
+//				}
 				
 				//DataUtils.savePreference(Const.USER_ID, data.optString(Const.USER_ID, ""));
 				
