@@ -7,22 +7,28 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.meetme.android.horizontallistview.HorizontalListView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sin.movies.Const;
 import com.sin.movies.R;
 import com.sin.movies.network.ServerManager;
 import com.sin.movies.network.ServerTask;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import common.design.layout.LayoutUtils;
@@ -39,8 +45,8 @@ import common.network.utils.LogicResult;
 import common.network.utils.ResultCallBack;
 
 public class CategoryActivity extends HeaderBarActivity {
-	GridView				m_categorylist	= null;
-	GridView				m_countrylist	= null;
+	HorizontalListView				m_categorylist	= null;
+	HorizontalListView				m_countrylist	= null;
 	GridView				m_movielist	= null;
 	ImageView 				m_arrayleft = null;
 	ImageView				m_arrayright = null;
@@ -57,6 +63,9 @@ public class CategoryActivity extends HeaderBarActivity {
 	JSONArray				moviedata = null;
 	JSONArray				categorydata = null;
 	JSONArray				countrydata = null;
+	LinearLayout			m_bottomlistview = null;
+	Button 					m_searchbt = null;
+	EditText				m_searchtext = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,11 +78,14 @@ public class CategoryActivity extends HeaderBarActivity {
 	{
 		super.findViews();
 
-		m_categorylist = (GridView) findViewById(R.id.category_list);
-		m_countrylist = (GridView) findViewById(R.id.country_list);
+		m_categorylist = (HorizontalListView) findViewById(R.id.category_list);
+		m_countrylist = (HorizontalListView) findViewById(R.id.country_list);
 		m_movielist = (GridView) findViewById(R.id.movie_list);
 		m_arrayleft = (ImageView) findViewById(R.id.array_left);
 		m_arrayright = (ImageView) findViewById(R.id.array_right);
+		m_bottomlistview = (LinearLayout) findViewById(R.id.bottomlist);
+		m_searchbt = (LinearLayout) findViewById(R.id.searchbt);
+		m_searchtext = (LinearLayout) findViewById(R.id.searchtext);
 	}
 	
 	protected void initData()
@@ -102,8 +114,7 @@ public class CategoryActivity extends HeaderBarActivity {
 				m_movieadapterGrid = new ItemMovieGridAdapter(CategoryActivity.this, movielist, R.layout.fragment_movie_item, null);		
 				m_movielist.setAdapter(m_movieadapterGrid);      	
 				m_movielist.requestFocus();
-				m_movielist.setSelection(0);
-				m_movielist.setItemChecked(0, true);
+				m_movieadapterGrid.notifyDataSetChanged();
 				
 			}
 		});
@@ -120,15 +131,27 @@ public class CategoryActivity extends HeaderBarActivity {
 				{
 					return;
 				}		
-				
-				categorydata = data.optJSONArray("content");
+				JSONObject object1 = new JSONObject();
+				try{
+					object1.put("id", 0);
+					object1.put("name", "All");
+				}catch(Exception e){}
+				categorydata = new JSONArray();
+				categorydata.put(object1);
+				JSONArray jsonarray = data.optJSONArray("content");
+				for (int i = 0; i < jsonarray.length(); i++) {
+					try {
+						categorydata.put(jsonarray.get(i));
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    }
 				categorylist = AlgorithmUtils.jsonarrayToList(categorydata);
 				m_categoryadapterGrid = new ItemCategoryGridAdapter(CategoryActivity.this, categorylist, R.layout.fragment_category_item, null);		
-				m_categorylist.setAdapter(m_categoryadapterGrid);    	
-				m_categorylist.requestFocus();			 	
-				m_categorylist.setNumColumns(categorydata.length());
+				m_categorylist.setAdapter(m_categoryadapterGrid);
 				m_categorylist.setSelection(0);
-				m_categorylist.setItemChecked(0, true);
+				m_categoryadapterGrid.notifyDataSetChanged();
 				
 			}
 		});
@@ -145,15 +168,27 @@ public class CategoryActivity extends HeaderBarActivity {
 				{
 					return;
 				}		
-				
-				countrydata = data.optJSONArray("content");
+				JSONObject object1 = new JSONObject();
+				try{
+					object1.put("id", 0);
+					object1.put("name", "All");
+				}catch(Exception e){}
+				countrydata = new JSONArray();
+				countrydata.put(object1);
+				JSONArray jsonarray = data.optJSONArray("content");
+				for (int i = 0; i < jsonarray.length(); i++) {
+					try {
+						countrydata.put(jsonarray.get(i));
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    }
 				countrylist = AlgorithmUtils.jsonarrayToList(countrydata);
 				m_countryadapterGrid = new ItemCountryGridAdapter(CategoryActivity.this, countrylist, R.layout.fragment_category_item, null);		
-				m_countrylist.setAdapter(m_countryadapterGrid);    	
-				m_countrylist.setNumColumns(countrydata.length());
-				m_countrylist.requestFocus();
+				m_countrylist.setAdapter(m_countryadapterGrid);  
 				m_countrylist.setSelection(0);
-				m_countrylist.setItemChecked(0, true);
+				m_countryadapterGrid.notifyDataSetChanged();
 				
 			}
 		});
@@ -161,19 +196,27 @@ public class CategoryActivity extends HeaderBarActivity {
 	protected void layoutControls()
 	{
 		super.layoutControls();
-		
-		LayoutUtils.setMargin(m_movielist, ScreenAdapter.getDeviceWidth() / 7, ScreenAdapter.getDeviceHeight() * 2 / 15, ScreenAdapter.getDeviceWidth() / 7, 0, true);
-		LayoutUtils.setSize(m_movielist, ScreenAdapter.getDeviceWidth() , ScreenAdapter.getDeviceHeight() * 9 / 10 , true);
-		
-		LayoutUtils.setMargin(m_countrylist, 0,  20, ScreenAdapter.getDeviceWidth() / 7, 10, true);
-		LayoutUtils.setSize(m_countrylist, LayoutParams.FILL_PARENT, ScreenAdapter.getDeviceHeight() * 1 / 7 , true);
-		
-		LayoutUtils.setMargin(m_categorylist, 0, 20, ScreenAdapter.getDeviceWidth() / 7, 10, true);
-		LayoutUtils.setSize(m_categorylist, LayoutParams.FILL_PARENT, ScreenAdapter.getDeviceHeight() * 1 / 7 , true);
-		
-		LayoutUtils.setMargin(m_arrayleft, ScreenAdapter.getDeviceWidth() / 8 , ScreenAdapter.getDeviceHeight() * 1 / 10, 10, 0, true);
+		int width = ScreenAdapter.getDeviceWidth();
+		int height = ScreenAdapter.getDeviceHeight();
+		if(width < height){
+			int h = height;
+			height = width;
+			width = h;
+		}
+		LayoutUtils.setMargin(m_movielist, ScreenAdapter.getDeviceWidth() / 7, 60, ScreenAdapter.getDeviceWidth() / 7, 0, true);
+		LayoutUtils.setSize(m_movielist, ScreenAdapter.getDeviceWidth() , ScreenAdapter.getDeviceHeight() , true);
+		LayoutUtils.setMargin(m_bottomlistview, ScreenAdapter.getDeviceWidth() / 14,  0, ScreenAdapter.getDeviceWidth() / 14, 10, true);
+		LayoutUtils.setPadding(m_countrylist, 180, 0, 0, 5, true);
+		LayoutUtils.setPadding(m_categorylist, 180, 0, 0, 15, true);
+//		LayoutUtils.setMargin(m_countrylist, 0,  10, ScreenAdapter.getDeviceWidth() / 7, 10, true);
+//		LayoutUtils.setSize(m_countrylist, ScreenAdapter.getDeviceWidth(), ScreenAdapter.getDeviceHeight() * 1 / 7 , true);
+//		
+//		LayoutUtils.setMargin(m_categorylist, 0, 10, ScreenAdapter.getDeviceWidth() / 7, 10, true);
+//		LayoutUtils.setSize(m_categorylist, ScreenAdapter.getDeviceWidth(), ScreenAdapter.getDeviceHeight() * 1 / 7 , true);
+//		
+		LayoutUtils.setMargin(m_arrayleft, ScreenAdapter.getDeviceWidth() / 8 , ScreenAdapter.getDeviceHeight() / 2, 10, 0, true);
 		LayoutUtils.setSize(m_arrayleft, 50, 100, true);
-		LayoutUtils.setMargin(m_arrayright, 10 , ScreenAdapter.getDeviceHeight() * 1 / 10, ScreenAdapter.getDeviceWidth() / 8, 0, true);
+		LayoutUtils.setMargin(m_arrayright, 10 , ScreenAdapter.getDeviceHeight() / 2, ScreenAdapter.getDeviceWidth() / 8 - 20, 0, true);
 		LayoutUtils.setSize(m_arrayright, 50, 100, true);
 	}
 	
@@ -188,20 +231,69 @@ public class CategoryActivity extends HeaderBarActivity {
 				gotoPlayPage(position);
 			}
 		});		
+		m_arrayleft.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(pageno > 1){
+					pageno = pageno - 1;
+					GetMovieList();
+				}
+			}
+			
+		});	
+		m_arrayright.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				pageno = pageno + 1;
+				GetMovieList();
+			}
+			
+		});	
 		m_countrylist.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				gotoPlayPage(position);
+
+				//m_countryadapterGrid.notifyDataSetChanged();
+				((TextView)view.findViewById(R.id.txt_name)).setTextColor(Color.GRAY);
+				((ImageView)view.findViewById(R.id.imageView1)).setVisibility(View.VISIBLE);
+				JSONObject object = countrylist.get(position);
+				try{
+					cid = object.getInt("id");
+					GetMovieList();
+				}catch(Exception e){}
+				//gotoPlayPage(position);
 			}
 		});		
 		m_categorylist.setOnItemClickListener(new OnItemClickListener() {
 
+			@SuppressLint("ResourceAsColor")
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				gotoOtherPage(position);
+				//m_categoryadapterGrid.notifyDataSetChanged();
+				((TextView)view.findViewById(R.id.txt_name)).setTextColor(Color.GRAY);
+				((ImageView)view.findViewById(R.id.imageView1)).setVisibility(View.VISIBLE);
+				JSONObject object = countrylist.get(position);
+				try{
+					catid = object.getInt("id");
+					GetMovieList();
+				}catch(Exception e){}
+				
+				//gotoOtherPage(position);
 			}
 		});	
+		m_searchbt.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 	
 	private void gotoOtherPage(int position)

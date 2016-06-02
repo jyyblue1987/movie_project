@@ -8,21 +8,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="30dp"
+        android:gravity="right|center_vertical"
         android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/textView1"
+        <Button
+            android:id="@+id/searchbt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_marginRight="15dp"
+            android:background="@drawable/search_bg"
+            android:text="Search"
+            android:textColor="@color/white" />
 
+        <EditText
+            android:id="@+id/searchtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/searchbar"
+            android:ems="10" >
+
+        </EditText>
+        
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="top|center_horizontal"
         android:orientation="horizontal" >
 
         <ImageView
@@ -35,8 +50,8 @@
             android:id="@+id/movie_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dip"
-            android:layout_marginRight="50dip"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:horizontalSpacing="2dip"
             android:listSelector="@drawable/category_bg"
             android:numColumns="6"
@@ -52,48 +67,38 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+            android:id="@+id/bottomlist"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-            android:layout_marginTop="20dip"
+        android:layout_marginTop="10dip"
+        android:background="@drawable/category_back"
+        android:gravity="center_horizontal|center"
         android:orientation="vertical" >
 
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="2dp"
             android:src="@drawable/line" />
 
-        <GridView
-            android:id="@+id/country_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dip"
-            android:layout_marginRight="50dip"
-            android:horizontalSpacing="2dip"
-            android:listSelector="@drawable/category_bg"
-            android:numColumns="8"
-            android:verticalSpacing="2dip" >
+         <com.meetme.android.horizontallistview.HorizontalListView
+             android:id="@+id/country_list"
+             android:layout_width="wrap_content"
+       		 android:gravity="center_horizontal|center"
+             android:layout_height="60dp" />
 
-        </GridView>
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dip"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dip"
             android:src="@drawable/line" />
 
-        <GridView
-            android:id="@+id/category_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dip"
-            android:layout_marginRight="50dip"
-            android:horizontalSpacing="2dip"
-            android:listSelector="@drawable/category_bg"
-            android:numColumns="8"
-            android:verticalSpacing="2dip" >
-        </GridView>
+		<com.meetme.android.horizontallistview.HorizontalListView
+		    android:id="@+id/category_list"
+		    android:layout_width="wrap_content"
+        	android:gravity="center_horizontal|center"
+		    android:layout_height="60dp" />
 
     </LinearLayout>
         

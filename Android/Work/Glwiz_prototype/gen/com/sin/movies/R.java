@@ -9,6 +9,16 @@ package com.sin.movies;
 
 public final class R {
     public static final class attr {
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int dividerWidth=0x7f010000;
     }
     public static final class color {
         public static final int app_back_color=0x7f06000b;
@@ -69,49 +79,55 @@ public final class R {
         public static final int scrubber_progress_horizontal_holo_dark=0x7f020028;
         public static final int scrubber_secondary_holo=0x7f020029;
         public static final int scrubber_track_holo_dark=0x7f02002a;
-        public static final int subcategory_bg=0x7f02002b;
-        public static final int subcategory_dividedline=0x7f02002c;
-        public static final int subcategory_normal=0x7f02002d;
-        public static final int subcategory_selected=0x7f02002e;
-        public static final int tvlist_icon=0x7f02002f;
+        public static final int search_bg=0x7f02002b;
+        public static final int search_bg_1=0x7f02002c;
+        public static final int searchbar=0x7f02002d;
+        public static final int selectmark=0x7f02002e;
+        public static final int subcategory_bg=0x7f02002f;
+        public static final int subcategory_dividedline=0x7f020030;
+        public static final int subcategory_normal=0x7f020031;
+        public static final int subcategory_selected=0x7f020032;
+        public static final int tvlist_icon=0x7f020033;
     }
     public static final class id {
-        public static final int array_left=0x7f07000f;
-        public static final int array_right=0x7f070011;
-        public static final int category_list=0x7f070015;
-        public static final int country_list=0x7f070013;
-        public static final int edit_content=0x7f070007;
-        public static final int fragment_activestate=0x7f07001d;
-        public static final int fragment_address=0x7f07001c;
-        public static final int fragment_deviceid=0x7f07001a;
-        public static final int fragment_email=0x7f07001b;
-        public static final int fragment_header=0x7f070016;
-        public static final int fragment_username=0x7f070019;
-        public static final int imageView1=0x7f070012;
-        public static final int imageView2=0x7f070014;
-        public static final int img_logo=0x7f070002;
-        public static final int img_thumbnail=0x7f070008;
-        public static final int lay_channel=0x7f07000b;
+        public static final int Button1=0x7f07000f;
+        public static final int array_left=0x7f070011;
+        public static final int array_right=0x7f070013;
+        public static final int bottomlist=0x7f070014;
+        public static final int category_list=0x7f070017;
+        public static final int country_list=0x7f070015;
+        public static final int editText1=0x7f070010;
+        public static final int edit_content=0x7f070008;
+        public static final int fragment_activestate=0x7f07001f;
+        public static final int fragment_address=0x7f07001e;
+        public static final int fragment_deviceid=0x7f07001c;
+        public static final int fragment_email=0x7f07001d;
+        public static final int fragment_header=0x7f070018;
+        public static final int fragment_username=0x7f07001b;
+        public static final int imageView1=0x7f070001;
+        public static final int imageView2=0x7f070016;
+        public static final int img_logo=0x7f070003;
+        public static final int img_thumbnail=0x7f070009;
+        public static final int lay_channel=0x7f07000c;
         public static final int lay_fragment=0x7f070000;
-        public static final int lay_info=0x7f070005;
-        public static final int list_menu=0x7f070017;
-        public static final int list_subcategory=0x7f070018;
-        public static final int mediacontroller_file_name=0x7f070023;
-        public static final int mediacontroller_play_pause=0x7f07001f;
-        public static final int mediacontroller_seekbar=0x7f070022;
-        public static final int mediacontroller_time_current=0x7f070020;
-        public static final int mediacontroller_time_total=0x7f070021;
-        public static final int movie_list=0x7f070010;
-        public static final int textView1=0x7f07000e;
-        public static final int txt_channel_id=0x7f070009;
-        public static final int txt_channel_title=0x7f07000a;
-        public static final int txt_english=0x7f07000c;
-        public static final int txt_india=0x7f07000d;
-        public static final int txt_label=0x7f070006;
-        public static final int txt_mainmenu=0x7f070003;
-        public static final int txt_name=0x7f070001;
-        public static final int txt_time=0x7f070004;
-        public static final int video_view=0x7f07001e;
+        public static final int lay_info=0x7f070006;
+        public static final int list_menu=0x7f070019;
+        public static final int list_subcategory=0x7f07001a;
+        public static final int mediacontroller_file_name=0x7f070025;
+        public static final int mediacontroller_play_pause=0x7f070021;
+        public static final int mediacontroller_seekbar=0x7f070024;
+        public static final int mediacontroller_time_current=0x7f070022;
+        public static final int mediacontroller_time_total=0x7f070023;
+        public static final int movie_list=0x7f070012;
+        public static final int txt_channel_id=0x7f07000a;
+        public static final int txt_channel_title=0x7f07000b;
+        public static final int txt_english=0x7f07000d;
+        public static final int txt_india=0x7f07000e;
+        public static final int txt_label=0x7f070007;
+        public static final int txt_mainmenu=0x7f070004;
+        public static final int txt_name=0x7f070002;
+        public static final int txt_time=0x7f070005;
+        public static final int video_view=0x7f070020;
     }
     public static final class layout {
         public static final int fragment_category_item=0x7f030000;
@@ -181,4 +197,59 @@ public final class R {
         public static final int MediaController_SeekBar=0x7f050000;
         public static final int MediaController_Text=0x7f050001;
     }
+    public static final class styleable {
+        /**  Defines the custom XML attributes supported for a HorizontalListView 
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #HorizontalListView_android_divider android:divider}</code></td><td></td></tr>
+           <tr><td><code>{@link #HorizontalListView_android_fadingEdgeLength android:fadingEdgeLength}</code></td><td></td></tr>
+           <tr><td><code>{@link #HorizontalListView_android_requiresFadingEdge android:requiresFadingEdge}</code></td><td></td></tr>
+           <tr><td><code>{@link #HorizontalListView_dividerWidth com.sin.movies:dividerWidth}</code></td><td></td></tr>
+           </table>
+           @see #HorizontalListView_android_divider
+           @see #HorizontalListView_android_fadingEdgeLength
+           @see #HorizontalListView_android_requiresFadingEdge
+           @see #HorizontalListView_dividerWidth
+         */
+        public static final int[] HorizontalListView = {
+            0x010100e0, 0x01010129, 0x010103a5, 0x7f010000
+        };
+        /**
+          <p>This symbol is the offset where the {@link android.R.attr#divider}
+          attribute's value can be found in the {@link #HorizontalListView} array.
+          @attr name android:divider
+        */
+        public static final int HorizontalListView_android_divider = 1;
+        /**
+          <p>This symbol is the offset where the {@link android.R.attr#fadingEdgeLength}
+          attribute's value can be found in the {@link #HorizontalListView} array.
+          @attr name android:fadingEdgeLength
+        */
+        public static final int HorizontalListView_android_fadingEdgeLength = 0;
+        /**
+          <p>This symbol is the offset where the {@link android.R.attr#requiresFadingEdge}
+          attribute's value can be found in the {@link #HorizontalListView} array.
+          @attr name android:requiresFadingEdge
+        */
+        public static final int HorizontalListView_android_requiresFadingEdge = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.sin.movies.R.attr#dividerWidth}
+          attribute's value can be found in the {@link #HorizontalListView} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.sin.movies:dividerWidth
+        */
+        public static final int HorizontalListView_dividerWidth = 3;
+    };
 }

@@ -74,6 +74,7 @@ class ProcessController extends Controller
 	{
 		if( $request->has('catid') == false  ||
 			$request->has('cid') == false  ||
+			$request->has('searchtext') == false  ||
 			$request->has('offset') == false  ||
 			$request->has('limit') == false)
 		{ 
@@ -84,15 +85,48 @@ class ProcessController extends Controller
 		$cid = $request->get('cid', 0);
 		$offset = $request->get('offset', 0);
 		$limit = $request->get('limit', 0);
+		$searchtext = $request->get('searchtext', '');
 		$offset1 = $limit * ($offset - 1);
-		if($catid == 0 && $cid == 0){
-			$data = DB::table('movies')->offset($offset1)->limit($limit)->orderby('created_at', 'DESC')->get();
-		}else if($catid == 0){
-			$data = DB::table('movies')->where('cid', $cid)->offset($offset1)->limit($limit)->orderby('created_at', 'DESC')->get();
-		}else if($cid == 0){
-			$data = DB::table('movies')->where('catid', $catid)->offset($offset1)->limit($limit)->orderby('created_at', 'DESC')->get();
+		if($searchtext == ''){
+			if($catid == 0 && $cid == 0){
+				$data = DB::table('movies')->offset($offset1)->limit($limit)->orderby('created_at', 'DESC')->get();
+			}else if($catid == 0){
+				$data = DB::table('movies')->where('cid', $cid)->offset($offset1)->limit($limit)->orderby('created_at', 'DESC')->get();
+			}else if($cid == 0){
+				$data = DB::table('movies')->where('catid', $catid)->offset($offset1)->limit($limit)->orderby('created_at', 'DESC')->get();
+			}else{
+				$data = DB::table('movies')->where('catid', $catid)->where('cid', $cid)->offset($offset1)->limit($limit)->orderby('created_at', 'DESC')->get();
+			}
 		}else{
-			$data = DB::table('movies')->where('catid', $catid)->where('cid', $cid)->offset($offset1)->limit($limit)->orderby('created_at', 'DESC')->get();
+			if($catid == 0 && $cid == 0){
+				$data = DB::table('movies')
+				->where(function($query) use($searchtext){
+						$query->where('name', 'like', '%'.$searchtext.'%');
+						$query->orWhere('desc', 'like','%'.$searchtext.'%');
+					})
+				->offset($offset1)->limit($limit)->orderby('created_at', 'DESC')->get();
+			}else if($catid == 0){
+				$data = DB::table('movies')
+				->where(function($query) use($searchtext){
+						$query->where('name', 'like', '%'.$searchtext.'%');
+						$query->orWhere('desc', 'like','%'.$searchtext.'%');
+					})
+				->where('cid', $cid)->offset($offset1)->limit($limit)->orderby('created_at', 'DESC')->get();
+			}else if($cid == 0){
+				$data = DB::table('movies')
+				->where(function($query) use($searchtext){
+						$query->where('name', 'like', '%'.$searchtext.'%');
+						$query->orWhere('desc', 'like','%'.$searchtext.'%');
+					})
+				->where('catid', $catid)->offset($offset1)->limit($limit)->orderby('created_at', 'DESC')->get();
+			}else{
+				$data = DB::table('movies')
+				->where(function($query) use($searchtext){
+						$query->where('name', 'like', '%'.$searchtext.'%');
+						$query->orWhere('desc', 'like','%'.$searchtext.'%');
+					})
+				->where('catid', $catid)->where('cid', $cid)->offset($offset1)->limit($limit)->orderby('created_at', 'DESC')->get();
+			}
 		}
 		
 		return $this->outputResult(SUCCESS, $data);
