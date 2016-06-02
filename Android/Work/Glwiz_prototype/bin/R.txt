@@ -64,13 +64,11 @@ int drawable subcategory_dividedline 0x7f020030
 int drawable subcategory_normal 0x7f020031
 int drawable subcategory_selected 0x7f020032
 int drawable tvlist_icon 0x7f020033
-int id Button1 0x7f07000f
 int id array_left 0x7f070011
 int id array_right 0x7f070013
 int id bottomlist 0x7f070014
 int id category_list 0x7f070017
 int id country_list 0x7f070015
-int id editText1 0x7f070010
 int id edit_content 0x7f070008
 int id fragment_activestate 0x7f07001f
 int id fragment_address 0x7f07001e
@@ -93,6 +91,8 @@ int id mediacontroller_seekbar 0x7f070024
 int id mediacontroller_time_current 0x7f070022
 int id mediacontroller_time_total 0x7f070023
 int id movie_list 0x7f070012
+int id searchbt 0x7f07000f
+int id searchtext 0x7f070010
 int id txt_channel_id 0x7f07000a
 int id txt_channel_title 0x7f07000b
 int id txt_english 0x7f07000d

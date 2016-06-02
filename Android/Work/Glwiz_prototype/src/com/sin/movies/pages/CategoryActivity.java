@@ -20,8 +20,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -31,6 +34,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import common.design.layout.LayoutUtils;
 import common.design.layout.ScreenAdapter;
 import common.image.load.ImageUtils;
@@ -66,6 +70,7 @@ public class CategoryActivity extends HeaderBarActivity {
 	LinearLayout			m_bottomlistview = null;
 	Button 					m_searchbt = null;
 	EditText				m_searchtext = null;
+	String 					searchtext = "0";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -84,8 +89,9 @@ public class CategoryActivity extends HeaderBarActivity {
 		m_arrayleft = (ImageView) findViewById(R.id.array_left);
 		m_arrayright = (ImageView) findViewById(R.id.array_right);
 		m_bottomlistview = (LinearLayout) findViewById(R.id.bottomlist);
-		m_searchbt = (LinearLayout) findViewById(R.id.searchbt);
-		m_searchtext = (LinearLayout) findViewById(R.id.searchtext);
+		m_searchbt = (Button) findViewById(R.id.searchbt);
+		m_searchtext = (EditText) findViewById(R.id.searchtext);
+		m_searchtext.setLines(1);
 	}
 	
 	protected void initData()
@@ -98,7 +104,7 @@ public class CategoryActivity extends HeaderBarActivity {
 	}
 	private void GetMovieList(){
 		 showLoadingProgress();
-		 ServerManager.getMovie(catid, cid, pageno, limit, new ResultCallBack() {
+		 ServerManager.getMovie(catid, cid, pageno, limit, searchtext, new ResultCallBack() {
 				
 			@Override
 			public void doAction(LogicResult result) {
@@ -108,7 +114,7 @@ public class CategoryActivity extends HeaderBarActivity {
 				{
 					return;
 				}		
-				
+				searchtext = "0";
 				moviedata = data.optJSONArray("content");
 				movielist = AlgorithmUtils.jsonarrayToList(moviedata);
 				m_movieadapterGrid = new ItemMovieGridAdapter(CategoryActivity.this, movielist, R.layout.fragment_movie_item, null);		
@@ -291,8 +297,52 @@ public class CategoryActivity extends HeaderBarActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				searchtext = m_searchtext.getText().toString();
+				if(!searchtext.equals("")){
+					GetMovieList();
+				}
+				InputMethodManager imm = (InputMethodManager) 
+				        getSystemService(Context.INPUT_METHOD_SERVICE);
+				    imm.hideSoftInputFromWindow(m_searchtext.getWindowToken(), 0);
 			}
+		});
+		m_searchtext.setOnKeyListener(new View.OnKeyListener() {
+			
+			@Override
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				// TODO Auto-generated method stub
+				if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER))
+				{
+					searchtext = m_searchtext.getText().toString();
+					if(!searchtext.equals("")){
+						GetMovieList();
+					}
+					InputMethodManager imm = (InputMethodManager) 
+					        getSystemService(Context.INPUT_METHOD_SERVICE);
+					    imm.hideSoftInputFromWindow(m_searchtext.getWindowToken(), 0);
+	                return true;
+				}
+				return false;
+			}
+		});
+		m_searchtext.setOnEditorActionListener(new OnEditorActionListener(){
+
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				// TODO Auto-generated method stub
+				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+					searchtext = m_searchtext.getText().toString();
+					if(!searchtext.equals("")){
+						GetMovieList();
+					}
+					InputMethodManager imm = (InputMethodManager) 
+					        getSystemService(Context.INPUT_METHOD_SERVICE);
+					    imm.hideSoftInputFromWindow(m_searchtext.getWindowToken(), 0);
+	                return true;
+	            }
+				return false;
+			}
+			
 		});
 	}
 	

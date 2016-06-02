@@ -28,7 +28,9 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"
             android:background="@drawable/searchbar"
-            android:ems="10" >
+            android:ems="10"
+            android:paddingLeft="10dp"
+            android:windowSoftInputMode="stateAlwaysHidden" >
 
         </EditText>
         

@@ -87,7 +87,8 @@ class ProcessController extends Controller
 		$limit = $request->get('limit', 0);
 		$searchtext = $request->get('searchtext', '');
 		$offset1 = $limit * ($offset - 1);
-		if($searchtext == ''){
+		$data = array();
+		if($searchtext == '0'){
 			if($catid == 0 && $cid == 0){
 				$data = DB::table('movies')->offset($offset1)->limit($limit)->orderby('created_at', 'DESC')->get();
 			}else if($catid == 0){

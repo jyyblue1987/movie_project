@@ -34,6 +34,7 @@ import com.sin.movies.pages.CategoryActivity.ItemMovieGridAdapter;
 import android.app.ActionBar.LayoutParams;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -55,6 +56,8 @@ import common.library.utils.AnimationUtils;
 import common.list.adapter.ItemCallBack;
 import common.list.adapter.MyListAdapter;
 import common.list.adapter.ViewHolder;
+import tv.danmaku.ijk.media.player.IMediaPlayer;
+import tv.danmaku.ijk.media.player.IMediaPlayer.OnPreparedListener;
 import tv.danmaku.ijk.media.widget.MediaController;
 import tv.danmaku.ijk.media.widget.VideoView;
 
@@ -147,10 +150,19 @@ public class PlayerActivity extends BaseActivity {
 	{
 		mVideoView.setVideoPath(url);
 		mVideoView.requestFocus();
-		mVideoView.start();		      	
+		mVideoView.start();	
+		showLoadingProgress();
+		mVideoView.setOnPreparedListener(new OnPreparedListener() {
+			@Override
+			public void onPrepared(IMediaPlayer mp) {
+				// TODO Auto-generated method stub
+				hideProgress();
+			}
+        });
 	}
 	
 	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (handleKeyDown(keyCode, event)) {
@@ -171,24 +183,24 @@ public class PlayerActivity extends BaseActivity {
 	{
 		if( keyCode == KeyEvent.KEYCODE_DPAD_LEFT )
 		{
-//			if( isShowPannel() == false )
-//			{
-//				buttonState = BACKRWARD_DOWN;
-//				scheduleTask();
-//				
-//				return true;
-//			}				
+			if( isShowPannel() == false )
+			{
+				buttonState = BACKRWARD_DOWN;
+				scheduleTask();
+				
+				return true;
+			}				
 		}
 		
 		if( keyCode == KeyEvent.KEYCODE_DPAD_RIGHT )
 		{
-//			if( isShowPannel() == false )
-//			{
-//				buttonState = FORWARD_DOWN;
-//				scheduleTask();
-//				
-//				return true;				
-//			}
+			if( isShowPannel() == false )
+			{
+				buttonState = FORWARD_DOWN;
+				scheduleTask();
+				
+				return true;				
+			}
 		}
 			
 		return false;
@@ -201,35 +213,74 @@ public class PlayerActivity extends BaseActivity {
 		
 		if( keyCode == KeyEvent.KEYCODE_DPAD_CENTER )
 		{
-			//onCenterButtonPressed();
+			onCenterButtonPressed();
 		}
 		if( keyCode == KeyEvent.KEYCODE_BACK )
 		{
-			//return onBackButtonPressed();
+			return onBackButtonPressed();
 		}
 		
 		if( keyCode == KeyEvent.KEYCODE_CHANNEL_UP || 
 			keyCode == KeyEvent.KEYCODE_DPAD_UP	||
 			keyCode == KeyEvent.KEYCODE_MEDIA_PREVIOUS )
 		{
-			//return onUpButtonPressed();
+			return onUpButtonPressed();
 		}
 		
 		if( keyCode == KeyEvent.KEYCODE_CHANNEL_DOWN || 
 				keyCode == KeyEvent.KEYCODE_DPAD_DOWN ||
 				keyCode == KeyEvent.KEYCODE_MEDIA_NEXT )
 		{
-			//return onDownButtonPressed();
+			return onDownButtonPressed();
 		}
 		
 		if( KeyEvent.KEYCODE_0 <= keyCode && 
 				keyCode <= KeyEvent.KEYCODE_9	)
 		{
-			//return onNumberButtonPressed(keyCode - KeyEvent.KEYCODE_0);
 		}
 		
 		return false;
 	}
+	
+	private boolean isShowPannel()
+	{
+		return false;		
+	}
+	
+	private boolean onCenterButtonPressed()
+	{
+		return true;
+	}
+	
+	private boolean onBackButtonPressed()
+	{
+			return false;
+	}
+	
+	private boolean onUpButtonPressed()
+	{
+		if( isShowPannel() == true )
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+	
+	private boolean onDownButtonPressed()
+	{
+		if( isShowPannel() == true )
+		{
+			return false;			
+		}
+		else
+		{
+			return true;
+		}
+	}
+
 	
 	@Override
 	protected void onResume() {

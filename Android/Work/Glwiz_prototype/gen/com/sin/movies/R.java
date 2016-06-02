@@ -90,13 +90,11 @@ containing a value of this type.
         public static final int tvlist_icon=0x7f020033;
     }
     public static final class id {
-        public static final int Button1=0x7f07000f;
         public static final int array_left=0x7f070011;
         public static final int array_right=0x7f070013;
         public static final int bottomlist=0x7f070014;
         public static final int category_list=0x7f070017;
         public static final int country_list=0x7f070015;
-        public static final int editText1=0x7f070010;
         public static final int edit_content=0x7f070008;
         public static final int fragment_activestate=0x7f07001f;
         public static final int fragment_address=0x7f07001e;
@@ -119,6 +117,8 @@ containing a value of this type.
         public static final int mediacontroller_time_current=0x7f070022;
         public static final int mediacontroller_time_total=0x7f070023;
         public static final int movie_list=0x7f070012;
+        public static final int searchbt=0x7f07000f;
+        public static final int searchtext=0x7f070010;
         public static final int txt_channel_id=0x7f07000a;
         public static final int txt_channel_title=0x7f07000b;
         public static final int txt_english=0x7f07000d;
