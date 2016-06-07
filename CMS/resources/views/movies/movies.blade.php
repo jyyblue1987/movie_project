@@ -42,6 +42,9 @@
 								<th style="text-align: center" style="width:25%">
 									<b>Thumbnail</b>
 								</th>
+								<th style="text-align: center" style="width:25%">
+									<b>Background</b>
+								</th>
 
 								<th style="text-align: center" style="width:7%">
 									<b>Updated Date</b>
@@ -103,6 +106,8 @@
 						<label class="control-label col-sm-4" for="path">Movie URL : </label>
 						<div class="col-sm-5" style="    width: 350px;">
 							<input type="text" class="form-control" id="path" name="path" placeholder="Movie url" value="" size="40">
+							<span style="float:left">OR</span>
+							<input type="file" class="form-control" id="videofile" name="videofile" placeholder="Video file" value="" size="40">
 						</div>
 					</div>
 					<div class="form-group">
@@ -110,7 +115,13 @@
 						<div class="col-sm-5" style="    width: 350px;">
 							<input type="file" class="form-control" id="thumb" name="thumb" placeholder="thumbnail" value="" size="40">
 						</div>
-					</div>                        
+					</div>    
+					<div class="form-group">
+						<label class="control-label col-sm-4" for="thumb">Background : </label>
+						<div class="col-sm-5" style="    width: 350px;">
+							<input type="file" class="form-control" id="background" name="background" placeholder="Background" value="" size="40">
+						</div>
+					</div>                       
 			</div>                         
 			<div class="modal-footer " id="createButton">
 				<button type="button" class="btn btn-success1 btn-sm" data-dismiss="modal" onClick="onUpdateRow()">
@@ -189,6 +200,7 @@
 			{ data: 'desc', name: 'm.desc' },
 			{ data: 'path', name: 'm.path' },
 			{ data: 'thumb', name: 'm.thumb' },
+			{ data: 'background', name: 'm.background' },
 			{ data: 'created_at', name: 'm.created_at' },
 			{ data: 'edit', orderable: false, searchable: false},
 			{ data: 'delete', orderable: false, searchable: false}
@@ -212,6 +224,8 @@
 		$("#desc").val("");
 		$("#path").val("");
 		$("#thumb").val("");
+		$("#videofile").val("");
+		$("#background").val("");
 		
 		if( id > 0 )	// Update
 		{
