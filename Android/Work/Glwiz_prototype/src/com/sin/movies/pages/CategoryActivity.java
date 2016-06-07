@@ -216,7 +216,7 @@ public class CategoryActivity extends HeaderBarActivity {
 		LayoutUtils.setSize(m_searchbt, 200, 70, true);
 		
 		LayoutUtils.setMargin(m_movielist, 0, 30, 0, 0, true);
-		LayoutUtils.setSize(m_movielist, 0, ScreenAdapter.computeHeight(700), true);
+		LayoutUtils.setSize(m_movielist, 0, ScreenAdapter.computeHeight(700), false);
 
 		LayoutUtils.setSize(m_arrayleft, 40, 80, true);
 		LayoutUtils.setSize(m_arrayright, 40, 80, true);
@@ -459,9 +459,9 @@ public class CategoryActivity extends HeaderBarActivity {
     		try{
     			photo = ServerTask.PHOTO_URL + item.getString("thumb");
     		}catch(Exception e){}
-    		int height = ScreenAdapter.computeHeight(700 / 2 - 20);
+    		int height = ScreenAdapter.computeHeight(700 / 2 - 10);
     		int width = ScreenAdapter.getDeviceWidth() / 6 - 5;
-    		LayoutUtils.setSize(ViewHolder.get(rowView, R.id.lay_fragment), width, height, false);
+    		LayoutUtils.setSize(ViewHolder.get(rowView, R.id.img_thumbnail), width, height, false);
     		LayoutUtils.setMargin(ViewHolder.get(rowView, R.id.img_thumbnail), 5, 5, 5, 5, true);
     		    		
     		DisplayImageOptions options = ImageUtils.buildUILOption(R.drawable.ic_launcher).build();
