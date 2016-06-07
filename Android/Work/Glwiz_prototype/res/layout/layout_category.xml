@@ -45,11 +45,11 @@
         android:orientation="horizontal"
         >
 
-        <ImageView
+        <ImageButton
             android:id="@+id/array_left"
             android:layout_width="10dip"
             android:layout_height="30dip"
-            android:src="@drawable/arrow_left" 
+            android:background="@drawable/arrow_left" 
             />
 
         <GridView
@@ -64,11 +64,11 @@
             android:verticalSpacing="2dip" >
         </GridView>
 
-        <ImageView
+        <ImageButton
             android:id="@+id/array_right"
             android:layout_width="10dip"
             android:layout_height="30dip"
-            android:src="@drawable/arrow_right" 
+            android:background="@drawable/arrow_right" 
             />
         
 
@@ -91,8 +91,10 @@
          <com.meetme.android.horizontallistview.HorizontalListView
              android:id="@+id/country_list"
              android:layout_width="match_parent"
+             android:layout_height="60dp"
        		 android:gravity="center_horizontal|center"
-             android:layout_height="60dp" />
+       		 android:focusable="true"
+              />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -103,8 +105,10 @@
 		<com.meetme.android.horizontallistview.HorizontalListView
 		    android:id="@+id/category_list"
 		    android:layout_width="match_parent"
+		    android:layout_height="60dp"
         	android:gravity="center_horizontal|center"
-		    android:layout_height="60dp" />
+        	android:focusable="true"
+		     />
 
     </LinearLayout>
         

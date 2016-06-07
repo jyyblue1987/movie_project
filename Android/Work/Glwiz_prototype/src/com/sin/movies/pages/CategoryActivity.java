@@ -31,6 +31,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -50,8 +51,8 @@ public class CategoryActivity extends HeaderBarActivity {
 	HorizontalListView				m_categorylist	= null;
 	HorizontalListView				m_countrylist	= null;
 	GridView				m_movielist	= null;
-	ImageView 				m_arrayleft = null;
-	ImageView				m_arrayright = null;
+	ImageButton 			m_arrayleft = null;
+	ImageButton				m_arrayright = null;
 	ItemCategoryGridAdapter 		m_categoryadapterGrid = null;
 	ItemCountryGridAdapter 			m_countryadapterGrid = null;
 	ItemMovieGridAdapter 			m_movieadapterGrid = null;
@@ -84,8 +85,8 @@ public class CategoryActivity extends HeaderBarActivity {
 		m_categorylist = (HorizontalListView) findViewById(R.id.category_list);
 		m_countrylist = (HorizontalListView) findViewById(R.id.country_list);
 		m_movielist = (GridView) findViewById(R.id.movie_list);
-		m_arrayleft = (ImageView) findViewById(R.id.array_left);
-		m_arrayright = (ImageView) findViewById(R.id.array_right);
+		m_arrayleft = (ImageButton) findViewById(R.id.array_left);
+		m_arrayright = (ImageButton) findViewById(R.id.array_right);
 		m_bottomlistview = (LinearLayout) findViewById(R.id.bottomlist);
 		m_searchbt = (Button) findViewById(R.id.searchbt);
 		m_searchtext = (EditText) findViewById(R.id.searchtext);
@@ -407,6 +408,9 @@ public class CategoryActivity extends HeaderBarActivity {
     		
     		((TextView)ViewHolder.get(rowView, R.id.txt_name)).setText(item.optString("name", ""));    	
     		LayoutUtils.setSize(ViewHolder.get(rowView, R.id.txt_name), 250, LayoutParams.WRAP_CONTENT, true);
+    		
+    		ViewHolder.get(rowView, R.id.txt_name).setFocusable(true);
+    		ViewHolder.get(rowView, R.id.txt_name).setFocusableInTouchMode(true);
     	}
     }
 	class ItemCountryGridAdapter extends MyListAdapter{
@@ -425,6 +429,9 @@ public class CategoryActivity extends HeaderBarActivity {
     		((TextView)ViewHolder.get(rowView, R.id.txt_name)).setTextSize(TypedValue.COMPLEX_UNIT_PX, ScreenAdapter.computeHeight(40));    		
     		((TextView)ViewHolder.get(rowView, R.id.txt_name)).setText(item.optString("name", ""));
     		LayoutUtils.setSize(ViewHolder.get(rowView, R.id.txt_name), 250, LayoutParams.WRAP_CONTENT, true);
+    		
+    		ViewHolder.get(rowView, R.id.txt_name).setFocusable(true);
+    		ViewHolder.get(rowView, R.id.txt_name).setFocusableInTouchMode(true);
     	}
     }
 	class ItemMovieGridAdapter extends MyListAdapter{
@@ -444,8 +451,8 @@ public class CategoryActivity extends HeaderBarActivity {
     		}catch(Exception e){}
     		int height = ScreenAdapter.computeHeight(700 / 2 - 20);
     		int width = ScreenAdapter.getDeviceWidth() / 6 - 5;
-    		LayoutUtils.setSize(ViewHolder.get(rowView, R.id.img_thumbnail), width, height, false);    		
-    		LayoutUtils.setMargin(ViewHolder.get(rowView, R.id.img_thumbnail), 5, 5, 5, 5, true);    		
+    		LayoutUtils.setSize(ViewHolder.get(rowView, R.id.lay_fragment), width, height, false);    		
+    		LayoutUtils.setMargin(ViewHolder.get(rowView, R.id.img_thumbnail), 20, 20, 20, 20, true);    		
     		DisplayImageOptions options = ImageUtils.buildUILOption(R.drawable.ic_launcher).build();
 			ImageLoader.getInstance().displayImage(photo, (ImageView)ViewHolder.get(rowView, R.id.img_thumbnail), options);
     	}
