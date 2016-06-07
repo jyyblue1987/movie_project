@@ -1,0 +1,5 @@
+- resolution   must be responsive for TV
+- thumbnail must be Zooming when we HOVER (SELECT)
+- Each Movies Need two Photos one for thumbnail one for Background 
+- We we Selecting (Choosing) Movies the background also must change , I mean (By hovering Movies)
+- The player must support .mkv video extension 

@@ -63,6 +63,9 @@ class MoviesController extends Controller
 				->editColumn('path', function ($data) {
 					return '<a href="'.$data->path.'" style="text-decoration: none;" target="_blank()">'.$data->path.'</a>';
 				})
+				->editColumn('background', function ($data) {
+					return '<a href="'.$data->background.'" style="text-decoration: none;" target="_blank()"><img src="'.$data->background.'" width="50px" height="30px"></a>';
+				})
 				->editColumn('thumb', function ($data) {
 					return '<a href="'.$data->thumb.'" style="text-decoration: none;" target="_blank()"><img src="'.$data->thumb.'" width="50px" height="30px"></a>';
 				})
@@ -109,6 +112,24 @@ class MoviesController extends Controller
 			$model->thumb = $file_url;
 			$model->save();
 		}
+		if($request->hasFile('background')){
+			
+			$file = $request->file('background');
+			$filename = $file->getClientOriginalName();
+			$file_url = $this->postAttached($file);
+			$model->background = $file_url;
+			$model->save();
+		}
+		if($path == ''){
+			if($request->hasFile('videofile')){			
+				$file = $request->file('videofile');
+				$filename = $file->getClientOriginalName();
+				$file_url = $this->postAttached($file);
+				$file_url = $_SERVER['DOCUMENT_ROOT'].$file_url;
+				$model->path = $file_url;
+				$model->save();
+			}
+		}
 		$_SESSION['maintitle'] = 'Movies';
 		$category = Category::lists('name', 'id');
 		$country = Country::lists('name', 'id');
@@ -151,6 +172,22 @@ class MoviesController extends Controller
 			$filename = $file->getClientOriginalName();
 			$file_url = $this->postAttached($file);
 			DB::table('movies')->where('id', $id)->update(['thumb'=>$file_url]);
+		}
+		if($request->hasFile('background')){
+			
+			$file = $request->file('background');
+			$filename = $file->getClientOriginalName();
+			$file_url = $this->postAttached($file);
+			DB::table('movies')->where('id', $id)->update(['background'=>$file_url]);
+		}
+		if($path == ''){
+			if($request->hasFile('videofile')){			
+				$file = $request->file('videofile');
+				$filename = $file->getClientOriginalName();
+				$file_url = $this->postAttached($file);
+				$file_url = 'http://'.$_SERVER['HTTP_HOST'].$file_url;
+				DB::table('movies')->where('id', $id)->update(['path'=>$file_url]);
+			}
 		}
 		$_SESSION['maintitle'] = 'Movies';
 		$category = Category::lists('name', 'id');
