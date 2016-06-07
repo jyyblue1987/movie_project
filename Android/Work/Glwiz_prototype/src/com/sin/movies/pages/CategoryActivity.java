@@ -1,6 +1,5 @@
 package com.sin.movies.pages;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -14,6 +13,7 @@ import com.sin.movies.Const;
 import com.sin.movies.R;
 import com.sin.movies.network.ServerManager;
 import com.sin.movies.network.ServerTask;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
@@ -23,6 +23,7 @@ import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -32,16 +33,13 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import common.design.layout.LayoutUtils;
 import common.design.layout.ScreenAdapter;
 import common.image.load.ImageUtils;
 import common.library.utils.AlgorithmUtils;
-import common.library.utils.MessageUtils;
 import common.list.adapter.ItemCallBack;
-import common.list.adapter.ItemResult;
 import common.list.adapter.MyListAdapter;
 import common.list.adapter.ViewHolder;
 import common.manager.activity.ActivityManager;
@@ -209,21 +207,27 @@ public class CategoryActivity extends HeaderBarActivity {
 			height = width;
 			width = h;
 		}
-		LayoutUtils.setMargin(m_movielist, ScreenAdapter.getDeviceWidth() / 7, 60, ScreenAdapter.getDeviceWidth() / 7, 0, true);
-		LayoutUtils.setSize(m_movielist, ScreenAdapter.getDeviceWidth() , ScreenAdapter.getDeviceHeight() , true);
-		LayoutUtils.setMargin(m_bottomlistview, ScreenAdapter.getDeviceWidth() / 14,  0, ScreenAdapter.getDeviceWidth() / 14, 10, true);
-		LayoutUtils.setPadding(m_countrylist, 180, 0, 0, 5, true);
-		LayoutUtils.setPadding(m_categorylist, 180, 0, 0, 15, true);
-//		LayoutUtils.setMargin(m_countrylist, 0,  10, ScreenAdapter.getDeviceWidth() / 7, 10, true);
-//		LayoutUtils.setSize(m_countrylist, ScreenAdapter.getDeviceWidth(), ScreenAdapter.getDeviceHeight() * 1 / 7 , true);
-//		
-//		LayoutUtils.setMargin(m_categorylist, 0, 10, ScreenAdapter.getDeviceWidth() / 7, 10, true);
-//		LayoutUtils.setSize(m_categorylist, ScreenAdapter.getDeviceWidth(), ScreenAdapter.getDeviceHeight() * 1 / 7 , true);
-//		
-		LayoutUtils.setMargin(m_arrayleft, ScreenAdapter.getDeviceWidth() / 8 , ScreenAdapter.getDeviceHeight() / 2, 10, 0, true);
-		LayoutUtils.setSize(m_arrayleft, 50, 100, true);
-		LayoutUtils.setMargin(m_arrayright, 10 , ScreenAdapter.getDeviceHeight() / 2, ScreenAdapter.getDeviceWidth() / 8 - 20, 0, true);
-		LayoutUtils.setSize(m_arrayright, 50, 100, true);
+		
+		LayoutUtils.setMargin(findViewById(R.id.lay_top_bar), 0, 10, 0, 0, true);
+		m_searchbt.setTextSize(TypedValue.COMPLEX_UNIT_PX, ScreenAdapter.computeHeight(40));
+		LayoutUtils.setSize(m_searchbt, 200, 70, true);
+		
+		LayoutUtils.setMargin(m_movielist, 0, 30, 0, 0, true);
+		LayoutUtils.setSize(m_movielist, 0, ScreenAdapter.computeHeight(700), true);
+
+		LayoutUtils.setSize(m_arrayleft, 40, 80, true);
+		LayoutUtils.setSize(m_arrayright, 40, 80, true);
+		LayoutUtils.setMargin(m_arrayleft, 40, 0, 40, 0, true);
+		LayoutUtils.setMargin(m_arrayright, 40, 0, 40, 0, true);
+		
+		LayoutUtils.setMargin(m_bottomlistview, 0,  20, 0, 10, true);
+		
+		LayoutUtils.setSize(m_countrylist, LayoutParams.MATCH_PARENT, 90, true);
+		LayoutUtils.setSize(m_categorylist, LayoutParams.MATCH_PARENT, 90, true);
+		LayoutUtils.setPadding(m_countrylist, 0, 0, 0, 5, true);
+		LayoutUtils.setPadding(m_categorylist, 0, 0, 0, 15, true);
+		
+		
 	}
 	
 	protected void initEvents()
@@ -401,7 +405,8 @@ public class CategoryActivity extends HeaderBarActivity {
     		Log.e("name", item.optString("name", ""));
     		((TextView)ViewHolder.get(rowView, R.id.txt_name)).setTextSize(TypedValue.COMPLEX_UNIT_PX, ScreenAdapter.computeHeight(40));
     		
-    		((TextView)ViewHolder.get(rowView, R.id.txt_name)).setText(item.optString("name", ""));    		
+    		((TextView)ViewHolder.get(rowView, R.id.txt_name)).setText(item.optString("name", ""));    	
+    		LayoutUtils.setSize(ViewHolder.get(rowView, R.id.txt_name), 250, LayoutParams.WRAP_CONTENT, true);
     	}
     }
 	class ItemCountryGridAdapter extends MyListAdapter{
@@ -417,9 +422,9 @@ public class CategoryActivity extends HeaderBarActivity {
     		final JSONObject item = getItem(position);
     		
     		
-    		((TextView)ViewHolder.get(rowView, R.id.txt_name)).setTextSize(TypedValue.COMPLEX_UNIT_PX, ScreenAdapter.computeHeight(40));
-    		
-    		((TextView)ViewHolder.get(rowView, R.id.txt_name)).setText(item.optString("name", ""));    		
+    		((TextView)ViewHolder.get(rowView, R.id.txt_name)).setTextSize(TypedValue.COMPLEX_UNIT_PX, ScreenAdapter.computeHeight(40));    		
+    		((TextView)ViewHolder.get(rowView, R.id.txt_name)).setText(item.optString("name", ""));
+    		LayoutUtils.setSize(ViewHolder.get(rowView, R.id.txt_name), 250, LayoutParams.WRAP_CONTENT, true);
     	}
     }
 	class ItemMovieGridAdapter extends MyListAdapter{
@@ -437,9 +442,9 @@ public class CategoryActivity extends HeaderBarActivity {
     		try{
     			photo = ServerTask.PHOTO_URL + item.getString("thumb");
     		}catch(Exception e){}
-    		int height = (ScreenAdapter.getDeviceHeight() * 9 / 10) / 2 - 10;
+    		int height = ScreenAdapter.computeHeight(700 / 2 - 20);
     		int width = ScreenAdapter.getDeviceWidth() / 6 - 5;
-    		LayoutUtils.setSize(ViewHolder.get(rowView, R.id.img_thumbnail), width, height, true);    		
+    		LayoutUtils.setSize(ViewHolder.get(rowView, R.id.img_thumbnail), width, height, false);    		
     		LayoutUtils.setMargin(ViewHolder.get(rowView, R.id.img_thumbnail), 5, 5, 5, 5, true);    		
     		DisplayImageOptions options = ImageUtils.buildUILOption(R.drawable.ic_launcher).build();
 			ImageLoader.getInstance().displayImage(photo, (ImageView)ViewHolder.get(rowView, R.id.img_thumbnail), options);

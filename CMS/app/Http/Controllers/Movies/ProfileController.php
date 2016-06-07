@@ -35,7 +35,7 @@ class ProfileController extends Controller
     {
 		$_SESSION['maintitle'] = 'Setup';
 		$profile = Profile::find(1);	
-		return view('Movies.profile', compact('profile'));
+		return view('movies.profile', compact('profile'));
     }
 	
     public function create()

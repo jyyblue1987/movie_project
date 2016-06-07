@@ -64,7 +64,7 @@ CREATE TABLE `devices` (
 
 /*Data for the table `devices` */
 
-insert  into `devices`(`id`,`macaddress`,`serialno`,`created_at`) values (5,'56:as:as:as:as:as:as','123456789','2016-06-01 11:08:06'),(21,'54:34:23:24:34','123456','2016-06-01 12:06:02'),(22,'as:we:we:df:df:sd','23231121','2016-06-01 12:06:02'),(23,'qw:er:23:34','wwwwww','2016-06-01 12:06:02');
+insert  into `devices`(`id`,`macaddress`,`serialno`,`created_at`) values (5,'56:as:as:as:as:as:as','123456789','2016-06-01 11:08:06'),(21,'9C:02:98:A0:97:E7','4641199a866b28ce','2016-06-01 19:21:38'),(22,'as:we:we:df:df:sd','23231121','2016-06-01 12:06:02'),(23,'qw:er:23:34','wwwwww','2016-06-01 12:06:02');
 
 /*Table structure for table `migrations` */
 
@@ -94,11 +94,11 @@ CREATE TABLE `movies` (
   `status` int(2) NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 
 /*Data for the table `movies` */
 
-insert  into `movies`(`id`,`catid`,`cid`,`name`,`desc`,`path`,`thumb`,`status`,`created_at`) values (17,2,2,'android developer','android','https://www.youtube.com/watch?v=QAbQgLGKd3Y','/uploads/1464700603.jpeg',1,'2016-05-31 21:19:37'),(18,2,2,'test movie 1','test','https://www.youtube.com/watch?v=Z149x12sXsw','/uploads/1464700621.jpg',1,'2016-05-31 21:19:11');
+insert  into `movies`(`id`,`catid`,`cid`,`name`,`desc`,`path`,`thumb`,`status`,`created_at`) values (17,2,2,'android developer','android','http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4','/uploads/1464859770.png',1,'2016-06-02 19:47:00'),(18,2,2,'test movie 1','test','http://clips.vorwaerts-gmbh.de/VfE_html5.mp4','/uploads/1464859762.png',1,'2016-06-02 19:46:27'),(19,2,2,'android developer','android','http://techslides.com/demos/sample-videos/small.mp4','/uploads/1464859756.png',1,'2016-06-02 17:29:16'),(20,2,2,'android developer','android','http://techslides.com/demos/sample-videos/small.mp4','/uploads/1464859749.png',1,'2016-06-02 17:29:09'),(21,2,2,'android developer','android','http://techslides.com/demos/sample-videos/small.mp4','/uploads/1464859733.png',1,'2016-06-02 17:28:54'),(22,2,2,'android developer','android','http://techslides.com/demos/sample-videos/small.mp4','/uploads/1464859725.png',1,'2016-06-02 17:28:45'),(23,2,2,'android developer','android','http://techslides.com/demos/sample-videos/small.mp4','/uploads/1464859718.png',1,'2016-06-02 17:28:38'),(24,2,2,'android developer','android','http://techslides.com/demos/sample-videos/small.mp4','/uploads/1464859711.png',1,'2016-06-02 17:28:31'),(25,2,2,'android developer','android','http://techslides.com/demos/sample-videos/small.mp4','/uploads/1464859705.png',1,'2016-06-02 17:28:25'),(26,2,2,'android developer','android','http://techslides.com/demos/sample-videos/small.mp4','/uploads/1464859697.png',1,'2016-06-02 17:28:17'),(27,2,2,'android developer','android','http://techslides.com/demos/sample-videos/small.mp4','/uploads/1464859690.png',1,'2016-06-02 17:28:10'),(28,2,2,'android developer','android','http://techslides.com/demos/sample-videos/small.mp4','/uploads/1464859685.png',1,'2016-06-02 17:28:05'),(29,2,2,'android developer','android','http://techslides.com/demos/sample-videos/small.mp4','/uploads/1464859680.png',1,'2016-06-02 17:28:00'),(30,2,2,'android developer','android','http://techslides.com/demos/sample-videos/small.mp4','/uploads/1464859672.png',1,'2016-06-02 17:27:52'),(31,2,2,'android developer','android','http://clips.vorwaerts-gmbh.de/VfE_html5.mp4','/uploads/1464859776.png',1,'2016-06-02 19:51:37');
 
 /*Table structure for table `password_resets` */
 

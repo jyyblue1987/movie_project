@@ -112,7 +112,7 @@ public class BaseActivity extends Activity implements BaseView {
        progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("è¯·ç¨?ç­?");
         progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(false);
+        progressDialog.setCancelable(true);
 	}
 
 	@Override
