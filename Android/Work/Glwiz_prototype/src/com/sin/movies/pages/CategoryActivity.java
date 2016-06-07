@@ -451,8 +451,9 @@ public class CategoryActivity extends HeaderBarActivity {
     		}catch(Exception e){}
     		int height = ScreenAdapter.computeHeight(700 / 2 - 20);
     		int width = ScreenAdapter.getDeviceWidth() / 6 - 5;
-    		LayoutUtils.setSize(ViewHolder.get(rowView, R.id.lay_fragment), width, height, false);    		
-    		LayoutUtils.setMargin(ViewHolder.get(rowView, R.id.img_thumbnail), 20, 20, 20, 20, true);    		
+    		LayoutUtils.setSize(ViewHolder.get(rowView, R.id.lay_fragment), width, height, false);
+    		LayoutUtils.setMargin(ViewHolder.get(rowView, R.id.img_thumbnail), 5, 5, 5, 5, true);
+    		    		
     		DisplayImageOptions options = ImageUtils.buildUILOption(R.drawable.ic_launcher).build();
 			ImageLoader.getInstance().displayImage(photo, (ImageView)ViewHolder.get(rowView, R.id.img_thumbnail), options);
     	}
