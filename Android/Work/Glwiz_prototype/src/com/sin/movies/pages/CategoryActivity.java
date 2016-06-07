@@ -70,6 +70,7 @@ public class CategoryActivity extends HeaderBarActivity {
 	Button 					m_searchbt = null;
 	EditText				m_searchtext = null;
 	String 					searchtext = "0";
+	ImageView				m_imgHoverThumbnail = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -90,6 +91,7 @@ public class CategoryActivity extends HeaderBarActivity {
 		m_bottomlistview = (LinearLayout) findViewById(R.id.bottomlist);
 		m_searchbt = (Button) findViewById(R.id.searchbt);
 		m_searchtext = (EditText) findViewById(R.id.searchtext);
+		m_imgHoverThumbnail = (ImageView) findViewById(R.id.img_hover_thumbnail);
 		m_searchtext.setLines(1);
 	}
 	
@@ -228,6 +230,13 @@ public class CategoryActivity extends HeaderBarActivity {
 		LayoutUtils.setPadding(m_countrylist, 0, 0, 0, 5, true);
 		LayoutUtils.setPadding(m_categorylist, 0, 0, 0, 15, true);
 		
+		height = ScreenAdapter.computeHeight(700 / 2);
+		width = ScreenAdapter.getDeviceWidth() / 6;
+		LayoutUtils.setSize(m_imgHoverThumbnail, width, height, false);
+		LayoutUtils.setMargin(m_imgHoverThumbnail, 5, 5, 5, 5, true);
+		    		
+		DisplayImageOptions options = ImageUtils.buildUILOption(R.drawable.ic_launcher).build();
+		ImageLoader.getInstance().displayImage("", m_imgHoverThumbnail, options);
 		
 	}
 	
@@ -377,6 +386,7 @@ public class CategoryActivity extends HeaderBarActivity {
 		try {
 			data.put(Const.POSITION, 0);
 			data.put(Const.ARRAY, item.get("path"));
+			data.put(Const.BACKGROUND, ServerTask.PHOTO_URL + item.get(Const.BACKGROUND));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

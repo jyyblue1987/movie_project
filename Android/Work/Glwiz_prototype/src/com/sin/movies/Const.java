@@ -14,4 +14,5 @@ public class Const {
 	
 	public static final String POSITION = "position";
 	public static final String ARRAY = "array";
+	public static final String BACKGROUND = "background";
 }

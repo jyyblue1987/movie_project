@@ -1,116 +1,130 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_back"
-    android:orientation="vertical" >
-
-    <LinearLayout
-        android:id="@+id/lay_top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="30dp"
-        android:gravity="right|center_vertical"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/searchbt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/search_bg"
-            android:text="Search"
-            android:textColor="@color/white" />
-
-        <EditText
-            android:id="@+id/searchtext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/searchbar"
-            android:ems="10"
-            android:paddingLeft="10dp"
-            android:windowSoftInputMode="stateAlwaysHidden" >
-
-        </EditText>
-        
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lay_grid_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        >
-
-        <ImageButton
-            android:id="@+id/array_left"
-            android:layout_width="10dip"
-            android:layout_height="30dip"
-            android:background="@drawable/arrow_left" 
-            />
-
-        <GridView
-            android:id="@+id/movie_list"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"        
-            android:layout_weight="1.0"
-            android:horizontalSpacing="2dip"
-            android:gravity="center"
-            android:listSelector="@drawable/category_bg"
-            android:numColumns="6"
-            android:verticalSpacing="2dip" >
-        </GridView>
-
-        <ImageButton
-            android:id="@+id/array_right"
-            android:layout_width="10dip"
-            android:layout_height="30dip"
-            android:background="@drawable/arrow_right" 
-            />
-        
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/bottomlist"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/category_back"
-        android:gravity="center_horizontal|center"
-        android:orientation="vertical" >
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:src="@drawable/line" />
-
-         <com.meetme.android.horizontallistview.HorizontalListView
-             android:id="@+id/country_list"
-             android:layout_width="match_parent"
-             android:layout_height="60dp"
-       		 android:gravity="center_horizontal|center"
-       		 android:focusable="true"
-              />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:src="@drawable/line" />
-
-		<com.meetme.android.horizontallistview.HorizontalListView
-		    android:id="@+id/category_list"
-		    android:layout_width="match_parent"
-		    android:layout_height="60dp"
-        	android:gravity="center_horizontal|center"
-        	android:focusable="true"
-		     />
-
-    </LinearLayout>
-        
-    
-</LinearLayout>
+     >
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:background="@drawable/main_back"
+	    android:orientation="vertical"
+	    >
+	
+	    <LinearLayout
+	        android:id="@+id/lay_top_bar"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginRight="50dp"
+	        android:layout_marginTop="30dp"
+	        android:gravity="right|center_vertical"
+	        android:orientation="horizontal" >
+	
+	        <Button
+	            android:id="@+id/searchbt"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginRight="15dp"
+	            android:background="@drawable/search_bg"
+	            android:text="Search"
+	            android:textColor="@color/white" />
+	
+	        <EditText
+	            android:id="@+id/searchtext"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginRight="30dp"
+	            android:background="@drawable/searchbar"
+	            android:ems="10"
+	            android:paddingLeft="10dp"
+	            android:windowSoftInputMode="stateAlwaysHidden" >
+	
+	        </EditText>
+	        
+	    </LinearLayout>
+	
+	    <LinearLayout
+	        android:id="@+id/lay_grid_view"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"
+	        android:orientation="horizontal"
+	        >
+	
+	        <ImageButton
+	            android:id="@+id/array_left"
+	            android:layout_width="10dip"
+	            android:layout_height="30dip"
+	            android:background="@drawable/arrow_left" 
+	            />
+	
+	        <GridView
+	            android:id="@+id/movie_list"
+	            android:layout_width="0dip"
+	            android:layout_height="match_parent"        
+	            android:layout_weight="1.0"
+	            android:horizontalSpacing="2dip"
+	            android:gravity="center"
+	            android:listSelector="@drawable/category_bg"
+	            android:numColumns="6"
+	            android:verticalSpacing="2dip" >
+	        </GridView>
+	
+	        <ImageButton
+	            android:id="@+id/array_right"
+	            android:layout_width="10dip"
+	            android:layout_height="30dip"
+	            android:background="@drawable/arrow_right" 
+	            />
+	        
+	
+	    </LinearLayout>
+	
+	    <LinearLayout
+	        android:id="@+id/bottomlist"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:background="@drawable/category_back"
+	        android:gravity="center_horizontal|center"
+	        android:orientation="vertical" >
+	
+	        <ImageView
+	            android:id="@+id/imageView1"
+	            android:layout_width="match_parent"
+	            android:layout_height="2dp"
+	            android:src="@drawable/line" />
+	
+	         <com.meetme.android.horizontallistview.HorizontalListView
+	             android:id="@+id/country_list"
+	             android:layout_width="match_parent"
+	             android:layout_height="60dp"
+	       		 android:gravity="center_horizontal|center"
+	       		 android:focusable="true"
+	              />
+	
+	        <ImageView
+	            android:id="@+id/imageView2"
+	            android:layout_width="match_parent"
+	            android:layout_height="2dp"
+	            android:src="@drawable/line" />
+	
+			<com.meetme.android.horizontallistview.HorizontalListView
+			    android:id="@+id/category_list"
+			    android:layout_width="match_parent"
+			    android:layout_height="60dp"
+	        	android:gravity="center_horizontal|center"
+	        	android:focusable="true"
+			     />
+	
+	    </LinearLayout>
+	    
+	</LinearLayout>
+            
+    <ImageView
+	    android:id="@+id/img_hover_thumbnail"
+	    android:layout_width="200dip"
+	    android:layout_height="200dip"
+	    android:scaleType="centerCrop"
+	    android:background="@color/red"
+	    android:visibility="gone"
+	    android:src="@drawable/ic_launcher" />
+</RelativeLayout>

@@ -70,6 +70,7 @@ public class PlayerActivity extends BaseActivity {
 	private static Timer mTimer;
 	private static UpdateDurationTask mDurationTask;
 	public String videourl = "";
+	ImageView	m_imgBack = null;
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
@@ -86,6 +87,7 @@ public class PlayerActivity extends BaseActivity {
 		mVideoView = (VideoView) findViewById(R.id.video_view);
 		m_MediaController = new MediaController(this);
 		mVideoView.setMediaController(m_MediaController);
+		m_imgBack = (ImageView) findViewById(R.id.img_back);
 //		mBufferingIndicator = findViewById(R.id.buffering_indicator);
 
 	}
@@ -125,8 +127,14 @@ public class PlayerActivity extends BaseActivity {
 		if((index = videourl.indexOf("v=")) != -1){
 			videourl = videourl.substring(index + 2, videourl.length());
 		}
+		
+		DisplayImageOptions options = ImageUtils.buildUILOption(R.drawable.ic_launcher).build();
+		ImageLoader.getInstance().displayImage(m_channelInfo.optString(Const.BACKGROUND, ""), m_imgBack, options);
+		
 		//new YourAsyncTask().execute();
 		playChannel(videourl);
+		
+		
 		
 	}
 	
@@ -150,12 +158,14 @@ public class PlayerActivity extends BaseActivity {
 	{
 		mVideoView.setVideoPath(url);
 		mVideoView.requestFocus();
-		mVideoView.start();	
+		mVideoView.start();
+		m_imgBack.setVisibility(View.VISIBLE);
 		showLoadingProgress();
 		mVideoView.setOnPreparedListener(new OnPreparedListener() {
 			@Override
 			public void onPrepared(IMediaPlayer mp) {
 				// TODO Auto-generated method stub
+				m_imgBack.setVisibility(View.GONE);
 				hideProgress();
 			}
         });
