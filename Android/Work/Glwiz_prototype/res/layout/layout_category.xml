@@ -6,6 +6,7 @@
     android:orientation="vertical" >
 
     <LinearLayout
+        android:id="@+id/lay_top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="50dp"
@@ -37,70 +38,77 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/lay_grid_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="top|center_horizontal"
-        android:orientation="horizontal" >
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
 
-        <ImageView
+        <ImageButton
             android:id="@+id/array_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/arrow_left" />
+            android:layout_width="10dip"
+            android:layout_height="30dip"
+            android:background="@drawable/arrow_left" 
+            />
 
         <GridView
             android:id="@+id/movie_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"        
+            android:layout_weight="1.0"
             android:horizontalSpacing="2dip"
+            android:gravity="center"
             android:listSelector="@drawable/category_bg"
             android:numColumns="6"
             android:verticalSpacing="2dip" >
         </GridView>
 
-        <ImageView
+        <ImageButton
             android:id="@+id/array_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/arrow_right" />
+            android:layout_width="10dip"
+            android:layout_height="30dip"
+            android:background="@drawable/arrow_right" 
+            />
+        
 
     </LinearLayout>
 
     <LinearLayout
-            android:id="@+id/bottomlist"
-        android:layout_width="wrap_content"
+        android:id="@+id/bottomlist"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
         android:background="@drawable/category_back"
         android:gravity="center_horizontal|center"
         android:orientation="vertical" >
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="2dp"
             android:src="@drawable/line" />
 
          <com.meetme.android.horizontallistview.HorizontalListView
              android:id="@+id/country_list"
-             android:layout_width="wrap_content"
+             android:layout_width="match_parent"
+             android:layout_height="60dp"
        		 android:gravity="center_horizontal|center"
-             android:layout_height="60dp" />
+       		 android:focusable="true"
+              />
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_marginTop="10dip"
             android:src="@drawable/line" />
 
 		<com.meetme.android.horizontallistview.HorizontalListView
 		    android:id="@+id/category_list"
-		    android:layout_width="wrap_content"
+		    android:layout_width="match_parent"
+		    android:layout_height="60dp"
         	android:gravity="center_horizontal|center"
-		    android:layout_height="60dp" />
+        	android:focusable="true"
+		     />
 
     </LinearLayout>
         
